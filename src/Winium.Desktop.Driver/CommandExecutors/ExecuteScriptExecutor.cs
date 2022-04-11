@@ -70,27 +70,9 @@
             return this.JsonResponse();
         }
 
-        private void ExecuteAutomationScript(string command)
-        {
-            var args = (JArray)this.ExecutedCommand.Parameters["args"];
-            var elementId = args[0]["ELEMENT"].ToString();
-
-            var element = this.Automator.ElementsRegistry.GetRegisteredElement(elementId);
-
-            switch (command)
-            {
-                case "ValuePattern.SetValue":
-                    this.ValuePatternSetValue(element, args);
-                    break;
-                default:
-                    var msg = string.Format(HelpUnknownScriptMsg, "automation:", command, HelpUrlAutomationScript);
-                    throw new AutomationException(msg, ResponseStatus.JavaScriptError);
-            }
-        }
-
         private void ExecuteInputScript(string command)
         {
-            var args = (JArray)this.ExecutedCommand.Parameters["args"];
+            var args = (JArray) this.ExecutedCommand.Parameters["args"];
             var elementId = args[0]["ELEMENT"].ToString();
 
             var element = this.Automator.ElementsRegistry.GetRegisteredElement(elementId);
@@ -105,6 +87,30 @@
                     return;
                 default:
                     var msg = string.Format(HelpUnknownScriptMsg, "input:", command, HelpUrlInputScript);
+                    throw new AutomationException(msg, ResponseStatus.JavaScriptError);
+            }
+        }
+
+        private void ExecuteAutomationScript(string command)
+        {
+            var args = (JArray)this.ExecutedCommand.Parameters["args"];
+            var elementId = args[0]["ELEMENT"].ToString();
+
+            var element = this.Automator.ElementsRegistry.GetRegisteredElement(elementId);
+
+            switch (command)
+            {
+                case "ValuePattern.SetValue":
+                    this.ValuePatternSetValue(element, args);
+                    break;
+                case "ScrollItemPattern.ScrollIntoView":
+                    element.GetPattern<ScrollItemPattern>(ScrollItemPattern.Pattern).ScrollIntoView();
+                    break;
+                case "SelectionItemPattern.Select":
+                    element.GetPattern<SelectionItemPattern>(SelectionItemPattern.Pattern).Select();
+                    break;
+                default:
+                    var msg = string.Format(HelpUnknownScriptMsg, "automation:", command, HelpUrlAutomationScript);
                     throw new AutomationException(msg, ResponseStatus.JavaScriptError);
             }
         }
