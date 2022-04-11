@@ -50,7 +50,9 @@
 
         public bool IsNewLine()
         {
-            return this.GetCharacter() == '\n';
+            return this.GetCharacter() == '\n' || 
+                this.GetCharacter() == Keys.Enter[0] || 
+                this.GetCharacter() == Keys.Return[0];
         }
 
         #endregion
