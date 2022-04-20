@@ -6,7 +6,7 @@
 
     using OpenQA.Selenium;
 
-    using WindowsInput.Native;
+    using WindowsInput;
 
     #endregion
 

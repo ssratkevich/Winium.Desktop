@@ -3,6 +3,7 @@
     #region using
 
     using System;
+    using CommandLine;
 
     #endregion
 
@@ -15,14 +16,22 @@
         {
             var listeningPort = 9999;
 
-            var options = new CommandLineOptions();
-            if (CommandLine.Parser.Default.ParseArguments(args, options))
-            {
-                if (options.Port.HasValue)
+            CommandLineOptions options = null;
+            var result = Parser.Default.ParseArguments<CommandLineOptions>(args)
+                .WithParsed<CommandLineOptions>(o =>
                 {
-                    listeningPort = options.Port.Value;
-                }
+                    options = o;
+                });
+            if (options == null)
+            {
+                options = new CommandLineOptions();
             }
+
+            if (options.Port.HasValue)
+            {
+                listeningPort = options.Port.Value;
+            }
+
 
             if (options.LogPath != null)
             {
