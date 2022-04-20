@@ -7,6 +7,12 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <UseWPF>true</UseWPF>
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+    <Title>Winium.Desktop.Driver</Title>
+    <Description>Selenium Remote WebDriver implementation for test automation of Windows application based on WinFroms and WPF platforms.</Description>
+    <Product>Winium.Desktop.Driver - a driver for Windows applications atuomation.</Product>
+    <Authors>ssratkevich, 2gis</Authors>
+    <Copyright>Copyright ©  2022</Copyright>
+    <Version>2.0.0</Version>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Winium.StoreApps.Common\Winium.StoreApps.Common.csproj" />
@@ -26,6 +32,9 @@
     </PackageReference>
     <PackageReference Include="Selenium.WebDriver" Version="3.141.0" />
     <PackageReference Include="Microsoft.Windows.Compatibility" Version="6.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
   <Target Name="AfterBuild" Condition=" '$(Configuration)' == 'Release' ">
     <MakeDir Directories="$(OutDir)Merge" />
