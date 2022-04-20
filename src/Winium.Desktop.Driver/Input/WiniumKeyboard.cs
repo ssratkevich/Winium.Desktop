@@ -1,18 +1,12 @@
-﻿namespace Winium.Desktop.Driver.Input
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using OpenQA.Selenium;
+using Winium.Cruciatus;
+using Winium.Cruciatus.Settings;
+
+namespace Winium.Desktop.Driver.Input
 {
-    #region using
-
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-
-    using OpenQA.Selenium;
-
-    using Winium.Cruciatus;
-    using Winium.Cruciatus.Settings;
-
-    #endregion
-
     internal class WiniumKeyboard
     {
         #region Fields
@@ -43,6 +37,13 @@
         {
             var key = KeyboardModifiers.GetVirtualKeyCode(keyToRelease);
             this.modifiers.Remove(keyToRelease);
+            CruciatusFactory.Keyboard.KeyUp(key);
+        }
+
+        public void KeyPress(string keyToPress)
+        {
+            var key = KeyboardModifiers.GetVirtualKeyCode(keyToPress);
+            CruciatusFactory.Keyboard.KeyDown(key);
             CruciatusFactory.Keyboard.KeyUp(key);
         }
 
@@ -94,6 +95,17 @@
                 else if (keyEvent.IsModifier())
                 {
                     this.PressOrReleaseModifier(keyEvent.GetKey());
+                }
+                else if (keyEvent.HasMapping())
+                {
+                    if (this.modifiers.Count > 0)
+                    {
+                        this.KeyDown(keyEvent.GetKey());
+                    }
+                    else
+                    {
+                        this.KeyPress(keyEvent.GetKey());
+                    }
                 }
                 else
                 {

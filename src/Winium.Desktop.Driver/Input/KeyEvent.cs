@@ -1,11 +1,7 @@
-﻿namespace Winium.Desktop.Driver.Input
+﻿using OpenQA.Selenium;
+
+namespace Winium.Desktop.Driver.Input
 {
-    #region using
-
-    using OpenQA.Selenium;
-
-    #endregion
-
     internal class KeyEvent
     {
         #region Fields
@@ -47,6 +43,9 @@
         {
             return this.GetKey() == Keys.Null;
         }
+
+        public bool HasMapping() =>
+            KeyboardModifiers.HasMapping(this.character);
 
         public bool IsNewLine()
         {
