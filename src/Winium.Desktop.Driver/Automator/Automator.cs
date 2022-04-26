@@ -1,14 +1,9 @@
-﻿namespace Winium.Desktop.Driver.Automator
+﻿using System.Collections.Generic;
+using Winium.Cruciatus;
+using Winium.Desktop.Driver.Input;
+
+namespace Winium.Desktop.Driver.Automator
 {
-    #region using
-
-    using System.Collections.Generic;
-
-    using Winium.Cruciatus;
-    using Winium.Desktop.Driver.Input;
-
-    #endregion
-
     internal class Automator
     {
         #region Static Fields
