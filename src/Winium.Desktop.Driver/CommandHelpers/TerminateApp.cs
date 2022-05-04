@@ -5,7 +5,7 @@ namespace Winium.Desktop.Driver.CommandHelpers
 {
     public static class TerminateApp
     {
-        public static void TerminateExcecutor(Automator.Automator automator)
+        internal static void TerminateExcecutor(object automatorObject)
         {
             var automator = (Automator.Automator) automatorObject;
             if (!automator.ActualCapabilities.DebugConnectToRunningApp)
