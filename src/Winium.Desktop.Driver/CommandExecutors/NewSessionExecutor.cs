@@ -1,19 +1,13 @@
-﻿namespace Winium.Desktop.Driver.CommandExecutors
+﻿using System.Threading;
+using Newtonsoft.Json;
+using Winium.Cruciatus;
+using Winium.Cruciatus.Settings;
+using Winium.Desktop.Driver.Automation;
+using Winium.Desktop.Driver.Input;
+using Winium.StoreApps.Common;
+
+namespace Winium.Desktop.Driver.CommandExecutors
 {
-    #region using
-
-    using System.Threading;
-
-    using Newtonsoft.Json;
-
-    using Winium.Cruciatus;
-    using Winium.Cruciatus.Settings;
-    using Winium.Desktop.Driver.Automator;
-    using Winium.Desktop.Driver.Input;
-    using Winium.StoreApps.Common;
-
-    #endregion
-
     internal class NewSessionExecutor : CommandExecutorBase
     {
         #region Methods

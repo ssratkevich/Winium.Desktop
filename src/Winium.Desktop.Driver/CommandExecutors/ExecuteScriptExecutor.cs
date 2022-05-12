@@ -1,21 +1,15 @@
-﻿namespace Winium.Desktop.Driver.CommandExecutors
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Windows.Automation;
+using Newtonsoft.Json.Linq;
+using Winium.Cruciatus.Core;
+using Winium.Cruciatus.Elements;
+using Winium.Cruciatus.Extensions;
+using Winium.StoreApps.Common;
+using Winium.StoreApps.Common.Exceptions;
+
+namespace Winium.Desktop.Driver.CommandExecutors
 {
-    #region using
-
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Windows.Automation;
-
-    using Newtonsoft.Json.Linq;
-
-    using Winium.Cruciatus.Core;
-    using Winium.Cruciatus.Elements;
-    using Winium.Cruciatus.Extensions;
-    using Winium.StoreApps.Common;
-    using Winium.StoreApps.Common.Exceptions;
-
-    #endregion
-
     internal class ExecuteScriptExecutor : CommandExecutorBase
     {
         #region Constants
@@ -73,9 +67,7 @@
         private void ExecuteInputScript(string command)
         {
             var args = (JArray) this.ExecutedCommand.Parameters["args"];
-            var elementId = args[0]["ELEMENT"].ToString();
-
-            var element = this.Automator.ElementsRegistry.GetRegisteredElement(elementId);
+            var element = this.TryGetElement(args[0]);
 
             switch (command)
             {
@@ -94,9 +86,7 @@
         private void ExecuteAutomationScript(string command)
         {
             var args = (JArray)this.ExecutedCommand.Parameters["args"];
-            var elementId = args[0]["ELEMENT"].ToString();
-
-            var element = this.Automator.ElementsRegistry.GetRegisteredElement(elementId);
+            var element = this.TryGetElement(args[0]);
 
             switch (command)
             {
@@ -104,10 +94,17 @@
                     this.ValuePatternSetValue(element, args);
                     break;
                 case "ScrollItemPattern.ScrollIntoView":
-                    element.GetPattern<ScrollItemPattern>(ScrollItemPattern.Pattern).ScrollIntoView();
+                case "ScrollIntoView":
+                    element.ScrollIntoView(this.TryGetElement(args.ElementAtOrDefault(1)));
                     break;
                 case "SelectionItemPattern.Select":
                     element.GetPattern<SelectionItemPattern>(SelectionItemPattern.Pattern).Select();
+                    break;
+                case "ExpandCollapsePattern.Expand":
+                    ExpandCollapse(element, args);
+                    break;
+                case "SetFocus":
+                    element.SetFocus();
                     break;
                 default:
                     var msg = string.Format(HelpUnknownScriptMsg, "automation:", command, HelpUrlAutomationScript);
@@ -125,6 +122,25 @@
             }
 
             element.GetPattern<ValuePattern>(ValuePattern.Pattern).SetValue(value.ToString());
+        }
+
+        private void ExpandCollapse(CruciatusElement element, IEnumerable<JToken> args)
+        {
+            bool expand = true;
+            var value = args.ElementAtOrDefault(1);
+            if (value != null)
+            {
+                bool.TryParse(value.ToString(), out expand);
+            }
+            var pattern = element.GetPattern<ExpandCollapsePattern>(ExpandCollapsePattern.Pattern);
+            if (expand)
+            {
+                pattern.Expand();
+            }
+            else
+            {
+                pattern.Collapse();
+            }
         }
 
         #endregion

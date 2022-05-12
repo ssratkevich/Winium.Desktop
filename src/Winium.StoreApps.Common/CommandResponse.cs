@@ -1,33 +1,41 @@
-﻿namespace Winium.StoreApps.Common
+﻿using System.Net;
+
+namespace Winium.StoreApps.Common
 {
-    #region
-
-    using System.Net;
-
-    #endregion
-
+    /// <summary>
+    /// Responce for command.
+    /// </summary>
     public class CommandResponse
     {
         #region Public Properties
 
+        /// <summary>
+        /// Response body.
+        /// </summary>
         public string Content { get; set; }
 
+        /// <summary>
+        /// Http response status.
+        /// </summary>
         public HttpStatusCode HttpStatusCode { get; set; }
 
         #endregion
 
-        #region Public Methods and Operators
+        #region Public Methods
 
-        public static CommandResponse Create(HttpStatusCode code, string content)
-        {
-            return new CommandResponse { HttpStatusCode = code, Content = content };
-        }
+        /// <summary>
+        /// Create command response.
+        /// </summary>
+        /// <param name="code">Response code.</param>
+        /// <param name="content">Response body.</param>
+        /// <returns>Command response.</returns>
+        public static CommandResponse Create(HttpStatusCode code, string content) =>
+            new CommandResponse { HttpStatusCode = code, Content = content };
 
-        public override string ToString()
-        {
-            return string.Format("{0}: {1}", this.HttpStatusCode, this.Content);
-        }
-
+        /// <inheritdoc/>
+        public override string ToString() =>
+            $"{this.HttpStatusCode}: {this.Content}";
+        
         #endregion
     }
 }

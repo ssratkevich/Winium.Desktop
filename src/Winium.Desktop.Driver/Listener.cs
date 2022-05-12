@@ -26,6 +26,7 @@
 
         private CommandExecutorDispatchTable executorDispatcher;
 
+        // TODO: Replace by System.Net.HttpListener
         private TcpListener listener;
 
         #endregion

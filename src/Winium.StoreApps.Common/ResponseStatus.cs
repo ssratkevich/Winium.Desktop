@@ -1,5 +1,8 @@
 ﻿namespace Winium.StoreApps.Common
 {
+    /// <summary>
+    /// Winium responce statuses.
+    /// </summary>
     public enum ResponseStatus
     {
         Success = 0, 

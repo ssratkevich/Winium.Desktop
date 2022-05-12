@@ -1,9 +1,8 @@
-﻿// Copied from OpenQA
-namespace Winium.StoreApps.Common
+﻿namespace Winium.StoreApps.Common
 {
     /// <summary>
     /// Values describing the list of commands understood by a remote server using the JSON wire protocol.
-    /// 
+    /// https://github.com/SeleniumHQ/selenium/blob/trunk/dotnet/src/webdriver/DriverCommand.cs
     /// </summary>
     public static class DriverCommand
     {

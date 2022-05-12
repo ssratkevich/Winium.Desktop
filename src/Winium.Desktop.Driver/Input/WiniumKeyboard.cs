@@ -11,7 +11,8 @@ namespace Winium.Desktop.Driver.Input
     {
         #region Fields
 
-        private readonly KeyboardModifiers modifiers = new KeyboardModifiers();
+        private readonly KeyboardModifiers modifiers = new();
+        private readonly KeyboardModifiers pressedKeys = new();
 
         #endregion
 
@@ -26,17 +27,25 @@ namespace Winium.Desktop.Driver.Input
 
         #region Public Methods and Operators
 
-        public void KeyDown(string keyToPress)
+        public void KeyDown(string keyToPress, bool isModifier)
         {
             var key = KeyboardModifiers.GetVirtualKeyCode(keyToPress);
-            this.modifiers.Add(keyToPress);
+            this.pressedKeys.Add(keyToPress);
+            if (isModifier)
+            {
+                this.modifiers.Add(keyToPress);
+            }
             CruciatusFactory.Keyboard.KeyDown(key);
         }
 
-        public void KeyUp(string keyToRelease)
+        public void KeyUp(string keyToRelease, bool isModifier)
         {
             var key = KeyboardModifiers.GetVirtualKeyCode(keyToRelease);
-            this.modifiers.Remove(keyToRelease);
+            if (isModifier)
+            {
+                this.modifiers.Remove(keyToRelease);
+            }
+            this.pressedKeys.Remove(keyToRelease);
             CruciatusFactory.Keyboard.KeyUp(key);
         }
 
@@ -60,11 +69,12 @@ namespace Winium.Desktop.Driver.Input
 
         protected void ReleaseModifiers()
         {
-            var tmp = this.modifiers.ToList();
+            this.modifiers.Clear();
+            var tmp = this.pressedKeys.ToList();
 
-            foreach (var modifierKey in tmp)
+            foreach (var key in tmp)
             {
-                this.KeyUp(modifierKey);
+                this.KeyUp(key, false);
             }
         }
 
@@ -72,11 +82,11 @@ namespace Winium.Desktop.Driver.Input
         {
             if (this.modifiers.Contains(modifier))
             {
-                this.KeyUp(modifier);
+                this.KeyUp(modifier, true);
             }
             else
             {
-                this.KeyDown(modifier);
+                this.KeyDown(modifier, true);
             }
         }
 
@@ -100,7 +110,7 @@ namespace Winium.Desktop.Driver.Input
                 {
                     if (this.modifiers.Count > 0)
                     {
-                        this.KeyDown(keyEvent.GetKey());
+                        this.KeyDown(keyEvent.GetKey(), false);
                     }
                     else
                     {

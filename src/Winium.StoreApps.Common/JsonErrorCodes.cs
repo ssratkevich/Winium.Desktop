@@ -1,17 +1,50 @@
-﻿namespace Winium.StoreApps.Common
+﻿using System.Collections.Generic;
+using System.Net;
+
+namespace Winium.StoreApps.Common
 {
-    #region using
-
-    using System.Collections.Generic;
-
-    #endregion
-
+    /// <summary>
+    /// Winium error codes.
+    /// </summary>
     public static class JsonErrorCodes
     {
         // TODO: in the future ResponseStatus will be removed in favor of HTTPStatus (see https://w3c.github.io/webdriver/webdriver-spec.html#handling-errors)
         #region Static Fields
 
         private static readonly Dictionary<ResponseStatus, string> ErrorMap = new Dictionary<ResponseStatus, string>();
+
+        private static readonly Dictionary<ErrorCodes, (string description, HttpStatusCode code)> ErrorCodesMap = new()
+        {
+            { ErrorCodes.Success, (string.Empty, HttpStatusCode.OK) },
+            { ErrorCodes.ElementClickIntercepted, ("element click intercepted", HttpStatusCode.BadRequest) },
+            { ErrorCodes.ElementNotInteractable, ("element not interactable", HttpStatusCode.BadRequest) },
+            { ErrorCodes.InsecureCertificate, ("insecure certificate", HttpStatusCode.BadRequest) },
+            { ErrorCodes.InvalidArgument, ("invalid argument", HttpStatusCode.BadRequest) },
+            { ErrorCodes.InvalidCookieDomain, ("invalid cookie domain", HttpStatusCode.BadRequest) },
+            { ErrorCodes.InvalidElementState, ("invalid element state", HttpStatusCode.BadRequest) },
+            { ErrorCodes.InvalidSelector , ("invalid selector", HttpStatusCode.BadRequest) },
+            { ErrorCodes.InvalidSessionId, ("invalid session id", HttpStatusCode.NotFound) },
+            { ErrorCodes.JavascriptError , ("javascript error", HttpStatusCode.InternalServerError) },
+            { ErrorCodes.MoveTargetOutOfBounds, ("move target out of bounds", HttpStatusCode.InternalServerError) },
+            { ErrorCodes.NoSuchAlert, ("no such alert", HttpStatusCode.NotFound) },
+            { ErrorCodes.NoSuchCookie, ("no such cookie", HttpStatusCode.NotFound) },
+            { ErrorCodes.NoSuchElement, ("no such element", HttpStatusCode.NotFound) },
+            { ErrorCodes.NoSuchFrame, ("no such frame", HttpStatusCode.NotFound) },
+            { ErrorCodes.NoSuchWindow, ("no such window", HttpStatusCode.NotFound) },
+            { ErrorCodes.NoSuchShadowRoot, ("no such shadow root", HttpStatusCode.NotFound) },
+            { ErrorCodes.ScriptTimeoutError, ("script timeout", HttpStatusCode.InternalServerError) },
+            { ErrorCodes.SessionNotCreated, ("session not created", HttpStatusCode.InternalServerError) },
+            { ErrorCodes.StaleElementReference, ("stale element reference", HttpStatusCode.NotFound) },
+            { ErrorCodes.DetachedShadowRoot, ("detached shadow root", HttpStatusCode.NotFound) },
+            { ErrorCodes.Timeout, ("timeout", HttpStatusCode.InternalServerError) },
+            { ErrorCodes.UnableToSetCookie, ("unable to set cookie", HttpStatusCode.InternalServerError) },
+            { ErrorCodes.UnableToCaptureScreen, ("unable to capture screen", HttpStatusCode.InternalServerError) },
+            { ErrorCodes.UnexpectedAlertOpen, ("unexpected alert open", HttpStatusCode.InternalServerError) },
+            { ErrorCodes.UnknownCommand, ("unknown command", HttpStatusCode.NotFound) },
+            { ErrorCodes.UnknownError, ("unknown error", HttpStatusCode.InternalServerError) },
+            { ErrorCodes.UnknownMethod, ("unknown method", HttpStatusCode.MethodNotAllowed) },
+            { ErrorCodes.UnsupportedOperation, ("unsupported operation", HttpStatusCode.InternalServerError) },
+        };
 
         #endregion
 
@@ -51,10 +84,31 @@
 
         #region Public Methods and Operators
 
-        public static string Parse(ResponseStatus status)
-        {
-            return ErrorMap.ContainsKey(status) ? ErrorMap[status] : status.ToString();
-        }
+        /// <summary>
+        /// Gets string description from response status.
+        /// </summary>
+        /// <param name="status">Response status code.</param>
+        /// <returns>Description.</returns>
+        public static string Parse(ResponseStatus status) =>
+            ErrorMap.ContainsKey(status) ? ErrorMap[status] : status.ToString();
+
+        /// <summary>
+        /// Gets string description from error code.
+        /// </summary>
+        /// <param name="code">Error code.</param>
+        /// <returns>Description.</returns>
+        public static string GetErrorDescription(ErrorCodes code) =>
+            ErrorCodesMap.TryGetValue(code, out var description)
+            ? description.description : code.ToString();
+
+        /// <summary>
+        /// Gets <see cref="HttpStatusCode"/> from error code.
+        /// </summary>
+        /// <param name="code">Error code.</param>
+        /// <returns>HttpStatusCode for error.</returns>
+        public static HttpStatusCode GetErrorStatusCode(ErrorCodes code) =>
+            ErrorCodesMap.TryGetValue(code, out var description)
+            ? description.code : HttpStatusCode.InternalServerError;
 
         #endregion
     }

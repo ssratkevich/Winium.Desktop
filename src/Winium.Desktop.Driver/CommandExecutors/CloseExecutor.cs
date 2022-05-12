@@ -1,12 +1,10 @@
-﻿using Winium.Desktop.Driver.CommandHelpers;
-
-namespace Winium.Desktop.Driver.CommandExecutors
+﻿namespace Winium.Desktop.Driver.CommandExecutors
 {
     internal class CloseExecutor : CommandExecutorBase
     {
         protected override string DoImpl()
         {
-            TerminateApp.TerminateExcecutor(this.Automator);
+            this.Automator.Close();
             return this.JsonResponse();
         }
     }

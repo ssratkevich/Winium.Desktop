@@ -1,18 +1,14 @@
-﻿namespace Winium.Desktop.Driver.CommandExecutors
+﻿using System;
+using System.Net;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Winium.Cruciatus.Elements;
+using Winium.Desktop.Driver.Automation;
+using Winium.StoreApps.Common;
+using Winium.StoreApps.Common.Exceptions;
+
+namespace Winium.Desktop.Driver.CommandExecutors
 {
-    #region using
-
-    using System;
-    using System.Net;
-
-    using Newtonsoft.Json;
-
-    using Winium.Desktop.Driver.Automator;
-    using Winium.StoreApps.Common;
-    using Winium.StoreApps.Common.Exceptions;
-
-    #endregion
-
     internal abstract class CommandExecutorBase
     {
         #region Public Properties
@@ -80,6 +76,11 @@
                 new JsonResponse(this.Automator.Session, status, value),
                 Formatting.Indented);
         }
+
+        protected CruciatusElement TryGetElement(JToken value) =>
+            value != null
+            ? this.Automator.ElementsRegistry.GetRegisteredElement(value["ELEMENT"].ToString())
+            : null;
 
         #endregion
     }

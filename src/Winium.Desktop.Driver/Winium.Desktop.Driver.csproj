@@ -31,9 +31,6 @@
     <PackageReference Include="Microsoft.Windows.Compatibility" Version="6.0.0" />
     <PackageReference Include="Winium.Cruciatus" Version="3.0.0" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Properties\" />
-  </ItemGroup>
   <Target Name="AfterBuild" Condition=" '$(Configuration)' == 'Release' ">
     <MakeDir Directories="$(OutDir)Merge" />
     <Exec Command="$(SolutionDir)packages\ILMerge.Tools.2.14.1208\tools\ILMerge.exe /target:exe /wildcards /ndebug /out:$(OutDir)Merge\Winium.Desktop.Driver.exe $(OutDir)Winium.Desktop.Driver.exe $(OutDir)*.dll" />

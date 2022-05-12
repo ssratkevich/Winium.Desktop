@@ -1,15 +1,14 @@
-﻿namespace Winium.Desktop.Driver
+﻿using System;
+using System.Collections.Generic;
+using System.Reflection;
+using Winium.StoreApps.Common;
+
+namespace Winium.Desktop.Driver
 {
-    #region using
-
-    using System;
-    using System.Collections.Generic;
-    using System.Reflection;
-
-    using Winium.StoreApps.Common;
-
-    #endregion
-
+    /// <summary>
+    /// Uri template tables helper.
+    /// Tables separated by HTTP method.
+    /// </summary>
     internal class UriDispatchTables
     {
         #region Fields
@@ -37,6 +36,12 @@
 
         #region Public Methods and Operators
 
+        /// <summary>
+        /// Try to get command by given URI and http method.
+        /// </summary>
+        /// <param name="httpMethod">Http protocol method.</param>
+        /// <param name="uriToMatch">Uri to match with.</param>
+        /// <returns>Matched pattern or null.</returns>
         public UriTemplateMatch Match(string httpMethod, Uri uriToMatch)
         {
             var table = this.FindDispatcherTable(httpMethod);
@@ -47,26 +52,19 @@
 
         #region Methods
 
-        internal UriTemplateTable FindDispatcherTable(string httpMethod)
-        {
-            UriTemplateTable tableToReturn = null;
-            switch (httpMethod)
+        /// <summary>
+        /// Select table to search in by http protocol method.
+        /// </summary>
+        /// <param name="httpMethod">Http protocol method.</param>
+        /// <returns>Table to search in or null.</returns>
+        private UriTemplateTable FindDispatcherTable(string httpMethod) =>
+            httpMethod switch
             {
-                case CommandInfo.GetCommand:
-                    tableToReturn = this.getDispatcherTable;
-                    break;
-
-                case CommandInfo.PostCommand:
-                    tableToReturn = this.postDispatcherTable;
-                    break;
-
-                case CommandInfo.DeleteCommand:
-                    tableToReturn = this.deleteDispatcherTable;
-                    break;
-            }
-
-            return tableToReturn;
-        }
+                CommandInfo.GetCommand => this.getDispatcherTable,
+                CommandInfo.PostCommand => this.postDispatcherTable,
+                CommandInfo.DeleteCommand => this.deleteDispatcherTable,
+                _ => null,
+            };
 
         private void ConstructDispatcherTables(Uri prefix)
         {
@@ -89,27 +87,54 @@
             this.deleteDispatcherTable.MakeReadOnly(false);
         }
 
+        /// <summary>
+        /// See: https://w3c.github.io/webdriver/#endpoints
+        /// </summary>
         private void InitializeSeleniumCommandDictionary()
         {
-            this.commandDictionary.Add(DriverCommand.DefineDriverMapping, new CommandInfo("POST", "/config/drivers"));
-            this.commandDictionary.Add(DriverCommand.Status, new CommandInfo("GET", "/status"));
             this.commandDictionary.Add(DriverCommand.NewSession, new CommandInfo("POST", "/session"));
+            // Wrong command name. Must be "Delete Session"
+            this.commandDictionary.Add(DriverCommand.Quit, new CommandInfo("DELETE", "/session/{sessionId}"));
+            this.commandDictionary.Add(DriverCommand.Status, new CommandInfo("GET", "/status"));
+            // Absent GET	/session/{session id}/timeouts	Get Timeouts
+            this.commandDictionary.Add(
+                DriverCommand.SetTimeout,
+                new CommandInfo("POST", "/session/{sessionId}/timeouts"));
+            // Not described command
+            this.commandDictionary.Add(
+                DriverCommand.ImplicitlyWait,
+                new CommandInfo("POST", "/session/{sessionId}/timeouts/implicit_wait"));
+            // Not described command
+            this.commandDictionary.Add(
+                DriverCommand.SetAsyncScriptTimeout,
+                new CommandInfo("POST", "/session/{sessionId}/timeouts/async_script"));
+            // Wrong name. Must be "Navigate To"
+            this.commandDictionary.Add(DriverCommand.Get, new CommandInfo("POST", "/session/{sessionId}/url"));
+            this.commandDictionary.Add(DriverCommand.GetCurrentUrl, new CommandInfo("GET", "/session/{sessionId}/url"));
+
+            this.commandDictionary.Add(DriverCommand.GoForward, new CommandInfo("POST", "/session/{sessionId}/forward"));
+
+            this.commandDictionary.Add(DriverCommand.GoBack, new CommandInfo("POST", "/session/{sessionId}/back"));
+
+            this.commandDictionary.Add(DriverCommand.Refresh, new CommandInfo("POST", "/session/{sessionId}/refresh"));
+
+            this.commandDictionary.Add(DriverCommand.DefineDriverMapping, new CommandInfo("POST", "/config/drivers"));
+            
+            
             this.commandDictionary.Add(DriverCommand.GetSessionList, new CommandInfo("GET", "/sessions"));
             this.commandDictionary.Add(
                 DriverCommand.GetSessionCapabilities,
                 new CommandInfo("GET", "/session/{sessionId}"));
-            this.commandDictionary.Add(DriverCommand.Quit, new CommandInfo("DELETE", "/session/{sessionId}"));
+
+            
             this.commandDictionary.Add(
                 DriverCommand.GetCurrentWindowHandle,
                 new CommandInfo("GET", "/session/{sessionId}/window_handle"));
             this.commandDictionary.Add(
                 DriverCommand.GetWindowHandles,
                 new CommandInfo("GET", "/session/{sessionId}/window_handles"));
-            this.commandDictionary.Add(DriverCommand.GetCurrentUrl, new CommandInfo("GET", "/session/{sessionId}/url"));
-            this.commandDictionary.Add(DriverCommand.Get, new CommandInfo("POST", "/session/{sessionId}/url"));
-            this.commandDictionary.Add(DriverCommand.GoForward, new CommandInfo("POST", "/session/{sessionId}/forward"));
-            this.commandDictionary.Add(DriverCommand.GoBack, new CommandInfo("POST", "/session/{sessionId}/back"));
-            this.commandDictionary.Add(DriverCommand.Refresh, new CommandInfo("POST", "/session/{sessionId}/refresh"));
+            
+            
             this.commandDictionary.Add(
                 DriverCommand.ExecuteScript,
                 new CommandInfo("POST", "/session/{sessionId}/execute"));
@@ -239,15 +264,7 @@
             this.commandDictionary.Add(
                 DriverCommand.SetAlertValue,
                 new CommandInfo("POST", "/session/{sessionId}/alert_text"));
-            this.commandDictionary.Add(
-                DriverCommand.SetTimeout,
-                new CommandInfo("POST", "/session/{sessionId}/timeouts"));
-            this.commandDictionary.Add(
-                DriverCommand.ImplicitlyWait,
-                new CommandInfo("POST", "/session/{sessionId}/timeouts/implicit_wait"));
-            this.commandDictionary.Add(
-                DriverCommand.SetAsyncScriptTimeout,
-                new CommandInfo("POST", "/session/{sessionId}/timeouts/async_script"));
+            
             this.commandDictionary.Add(DriverCommand.MouseClick, new CommandInfo("POST", "/session/{sessionId}/click"));
             this.commandDictionary.Add(
                 DriverCommand.MouseDoubleClick,

@@ -1,14 +1,9 @@
-﻿namespace Winium.Desktop.Driver.Automator
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+using Winium.Cruciatus.Settings;
+
+namespace Winium.Desktop.Driver.Automation
 {
-    #region using
-
-    using Newtonsoft.Json;
-    using Newtonsoft.Json.Serialization;
-
-    using Winium.Cruciatus.Settings;
-
-    #endregion
-
     internal class Capabilities
     {
         #region Constructors and Destructors

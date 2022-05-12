@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using Winium.Cruciatus;
 using Winium.Desktop.Driver.Input;
 
-namespace Winium.Desktop.Driver.Automator
+namespace Winium.Desktop.Driver.Automation
 {
     internal class Automator
     {
@@ -68,6 +69,46 @@ namespace Winium.Desktop.Driver.Automator
             }
 
             return instance;
+        }
+
+        /// <summary>
+        /// Close application.
+        /// </summary>
+        public void CloseApplication()
+        {
+            if (this.ActualCapabilities.DebugConnectToRunningApp)
+            {
+                return;
+            }
+
+            // If application had exited, find and terminate all children processes
+            if (this.Application.HasExited())
+            {
+                List<Process> children = new List<Process>();
+                children = this.Application.GetChildPrecesses(this.Application.GetProcessId());
+                foreach (var child in children)
+                {
+                    if (!child.HasExited && !this.Application.Close(child))
+                    {
+                        this.Application.Kill(child);
+                    }
+                }
+            }
+
+            // If application is still running, terminate it as normal case
+            else if (!this.Application.Close())
+            {
+                this.Application.Kill();
+            }
+        }
+
+        /// <summary>
+        /// Close session.
+        /// </summary>
+        public void Close()
+        {
+            this.CloseApplication();
+            this.ElementsRegistry.Clear();
         }
 
         #endregion
