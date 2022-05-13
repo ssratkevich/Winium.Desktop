@@ -79,8 +79,11 @@ namespace Winium.Desktop.Driver.CommandExecutors
 
         protected CruciatusElement TryGetElement(JToken value) =>
             value != null
-            ? this.Automator.ElementsRegistry.GetRegisteredElement(value["ELEMENT"].ToString())
+            ? this.TryGetElement(value["ELEMENT"].ToString())
             : null;
+
+        protected CruciatusElement TryGetElement(string elementId) =>
+            this.Automator.ElementsRegistry.GetRegisteredElement(elementId);
 
         #endregion
     }

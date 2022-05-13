@@ -24,6 +24,7 @@
 
         static AutomationPropertyHelper()
         {
+            // TODO: Use UIAutomationTypes System.Windows.Automation.*Identifiers classes to full list of properties.
             Properties =
                 typeof(AutomationElementIdentifiers).GetFields(BindingFlags.Public | BindingFlags.Static)
                     .Where(f => f.FieldType == typeof(AutomationProperty))

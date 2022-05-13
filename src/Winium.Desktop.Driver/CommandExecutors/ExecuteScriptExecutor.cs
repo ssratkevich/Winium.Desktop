@@ -19,12 +19,12 @@ namespace Winium.Desktop.Driver.CommandExecutors
         internal const string HelpUnknownScriptMsg = "Unknown script command '{0} {1}'. See {2} for supported commands.";
 
         internal const string HelpUrlAutomationScript =
-            "https://github.com/2gis/Winium.Desktop/wiki/Command-Execute-Script#use-ui-automation-patterns-on-element";
+            "https://github.com/ssratkevich/Winium.Desktop/wiki/Command-Execute-Script#use-ui-automation-patterns-on-element";
 
         internal const string HelpUrlInputScript =
-            "https://github.com/2gis/Winium.Desktop/wiki/Command-Execute-Script#simulate-input";
+            "https://github.com/ssratkevich/Winium.Desktop/wiki/Command-Execute-Script#simulate-input";
 
-        internal const string HelpUrlScript = "https://github.com/2gis/Winium.Desktop/wiki/Command-Execute-Script";
+        internal const string HelpUrlScript = "https://github.com/ssratkevich/Winium.Desktop/wiki/Command-Execute-Script";
 
         #endregion
 
