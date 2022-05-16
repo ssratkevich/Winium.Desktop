@@ -94,6 +94,8 @@ namespace Winium.Desktop.Driver.CommandExecutors
                     this.ValuePatternSetValue(element, args);
                     break;
                 case "ScrollItemPattern.ScrollIntoView":
+                    element.GetPattern<ScrollItemPattern>(ScrollItemPattern.Pattern).ScrollIntoView();
+                    break;
                 case "ScrollIntoView":
                     element.ScrollIntoView(this.TryGetElement(args.ElementAtOrDefault(1)));
                     break;

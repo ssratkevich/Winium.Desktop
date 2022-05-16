@@ -50,8 +50,8 @@ namespace Winium.Desktop.Driver.Input
         public bool IsNewLine()
         {
             return this.GetCharacter() == '\n' || 
-                this.GetCharacter() == Keys.Enter[0] || 
-                this.GetCharacter() == Keys.Return[0];
+                this.GetKey() == Keys.Enter || 
+                this.GetKey() == Keys.Return;
         }
 
         #endregion
