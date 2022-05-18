@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Winium.Cruciatus;
 using Winium.Cruciatus.Settings;
 using Winium.Desktop.Driver.Automation;
@@ -16,8 +17,14 @@ namespace Winium.Desktop.Driver.CommandExecutors
         {
             // It is easier to reparse desired capabilities as JSON instead of re-mapping keys to attributes and calling type conversions, 
             // so we will take possible one time performance hit by serializing Dictionary and deserializing it as Capabilities object
-            var serializedCapability =
-                JsonConvert.SerializeObject(this.ExecutedCommand.Parameters["desiredCapabilities"]);
+            if (this.ExecutedCommand.Parameters.TryGetValue("desiredCapabilities", out var token))
+            {
+            }
+            else if (this.ExecutedCommand.Parameters.TryGetValue("capabilities", out token))
+            {
+                token = token["firstMatch"][0];
+            }
+            var serializedCapability = JsonConvert.SerializeObject(token);
             this.Automator.ActualCapabilities = Capabilities.CapabilitiesFromJsonString(serializedCapability);
 
             this.InitializeApplication(this.Automator.ActualCapabilities.DebugConnectToRunningApp);

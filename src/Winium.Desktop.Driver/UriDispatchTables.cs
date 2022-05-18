@@ -112,11 +112,73 @@ namespace Winium.Desktop.Driver
             this.commandDictionary.Add(DriverCommand.Get, new CommandInfo("POST", "/session/{sessionId}/url"));
             this.commandDictionary.Add(DriverCommand.GetCurrentUrl, new CommandInfo("GET", "/session/{sessionId}/url"));
 
+            // Wrong name. Must be "Back"
+            this.commandDictionary.Add(DriverCommand.GoBack, new CommandInfo("POST", "/session/{sessionId}/back"));
+            // Wrong name. Must be "Forward"
             this.commandDictionary.Add(DriverCommand.GoForward, new CommandInfo("POST", "/session/{sessionId}/forward"));
 
-            this.commandDictionary.Add(DriverCommand.GoBack, new CommandInfo("POST", "/session/{sessionId}/back"));
-
             this.commandDictionary.Add(DriverCommand.Refresh, new CommandInfo("POST", "/session/{sessionId}/refresh"));
+
+            this.commandDictionary.Add(DriverCommand.GetTitle, new CommandInfo("GET", "/session/{sessionId}/title"));
+
+            // Absent GET	/session/{session id}/window	Get Window Handle
+
+            // Wrong name. Must be "Close Window"
+            this.commandDictionary.Add(DriverCommand.Close, new CommandInfo("DELETE", "/session/{sessionId}/window"));
+
+            this.commandDictionary.Add(
+                DriverCommand.SwitchToWindow,
+                new CommandInfo("POST", "/session/{sessionId}/window"));
+
+            // Not described command
+            this.commandDictionary.Add(
+                DriverCommand.GetCurrentWindowHandle,
+                new CommandInfo("GET", "/session/{sessionId}/window_handle"));
+
+            // Wrong address. Must be "/session/{sessionId}/window/handles"
+            this.commandDictionary.Add(
+                DriverCommand.GetWindowHandles,
+                new CommandInfo("GET", "/session/{sessionId}/window_handles"));
+
+            // Absent POST	/session/{session id}/window/new	New Window
+
+            this.commandDictionary.Add(
+                DriverCommand.SwitchToFrame,
+                new CommandInfo("POST", "/session/{sessionId}/frame"));
+            this.commandDictionary.Add(
+                DriverCommand.SwitchToParentFrame,
+                new CommandInfo("POST", "/session/{sessionId}/frame/parent"));
+
+            // Absent GET	/session/{session id}/window/rect	Get Window Rect
+            // Absent POST / session /{ session id}/ window / rect   Set Window Rect
+
+            // Not described command
+            this.commandDictionary.Add(
+                DriverCommand.GetWindowSize,
+                new CommandInfo("GET", "/session/{sessionId}/window/{windowHandle}/size"));
+            // Not described command
+            this.commandDictionary.Add(
+                DriverCommand.SetWindowSize,
+                new CommandInfo("POST", "/session/{sessionId}/window/{windowHandle}/size"));
+            // Not described command
+            this.commandDictionary.Add(
+                DriverCommand.GetWindowPosition,
+                new CommandInfo("GET", "/session/{sessionId}/window/{windowHandle}/position"));
+            // Not described command
+            this.commandDictionary.Add(
+                DriverCommand.SetWindowPosition,
+                new CommandInfo("POST", "/session/{sessionId}/window/{windowHandle}/position"));
+            // Not described command
+            this.commandDictionary.Add(
+                DriverCommand.MaximizeWindow,
+                new CommandInfo("POST", "/session/{sessionId}/window/{windowHandle}/maximize"));
+
+            // Absent GET  /session/{sessionId}/window/rect       Get Window Rect
+            // Absent POST /session/{sessionId}/window/rect       Set Window Rect
+            // Absent POST /session/{sessionId}/window/maximize   Maximize Window
+            // Absent POST /session/{sessionId}/window/minimize   Minimize Window
+            // Absent POST /session/{sessionId}/window/fullscreen Fullscreen Window
+
 
             this.commandDictionary.Add(DriverCommand.DefineDriverMapping, new CommandInfo("POST", "/config/drivers"));
             
@@ -126,15 +188,6 @@ namespace Winium.Desktop.Driver
                 DriverCommand.GetSessionCapabilities,
                 new CommandInfo("GET", "/session/{sessionId}"));
 
-            
-            this.commandDictionary.Add(
-                DriverCommand.GetCurrentWindowHandle,
-                new CommandInfo("GET", "/session/{sessionId}/window_handle"));
-            this.commandDictionary.Add(
-                DriverCommand.GetWindowHandles,
-                new CommandInfo("GET", "/session/{sessionId}/window_handles"));
-            
-            
             this.commandDictionary.Add(
                 DriverCommand.ExecuteScript,
                 new CommandInfo("POST", "/session/{sessionId}/execute"));
@@ -144,15 +197,8 @@ namespace Winium.Desktop.Driver
             this.commandDictionary.Add(
                 DriverCommand.Screenshot,
                 new CommandInfo("GET", "/session/{sessionId}/screenshot"));
-            this.commandDictionary.Add(
-                DriverCommand.SwitchToFrame,
-                new CommandInfo("POST", "/session/{sessionId}/frame"));
-            this.commandDictionary.Add(
-                DriverCommand.SwitchToParentFrame,
-                new CommandInfo("POST", "/session/{sessionId}/frame/parent"));
-            this.commandDictionary.Add(
-                DriverCommand.SwitchToWindow,
-                new CommandInfo("POST", "/session/{sessionId}/window"));
+
+            
             this.commandDictionary.Add(
                 DriverCommand.GetAllCookies,
                 new CommandInfo("GET", "/session/{sessionId}/cookie"));
@@ -166,16 +212,20 @@ namespace Winium.Desktop.Driver
             this.commandDictionary.Add(
                 DriverCommand.GetPageSource,
                 new CommandInfo("GET", "/session/{sessionId}/source"));
-            this.commandDictionary.Add(DriverCommand.GetTitle, new CommandInfo("GET", "/session/{sessionId}/title"));
+            
             this.commandDictionary.Add(
                 DriverCommand.FindElement,
                 new CommandInfo("POST", "/session/{sessionId}/element"));
             this.commandDictionary.Add(
                 DriverCommand.FindElements,
                 new CommandInfo("POST", "/session/{sessionId}/elements"));
+
             this.commandDictionary.Add(
                 DriverCommand.GetActiveElement,
                 new CommandInfo("POST", "/session/{sessionId}/element/active"));
+
+            // Absent GET	/session/{session id}/element/{element id}/shadow	Get Element Shadow Root
+
             this.commandDictionary.Add(
                 DriverCommand.FindChildElement,
                 new CommandInfo("POST", "/session/{sessionId}/element/{id}/element"));
@@ -230,22 +280,8 @@ namespace Winium.Desktop.Driver
             this.commandDictionary.Add(
                 DriverCommand.ElementEquals,
                 new CommandInfo("GET", "/session/{sessionId}/element/{id}/equals/{other}"));
-            this.commandDictionary.Add(DriverCommand.Close, new CommandInfo("DELETE", "/session/{sessionId}/window"));
-            this.commandDictionary.Add(
-                DriverCommand.GetWindowSize,
-                new CommandInfo("GET", "/session/{sessionId}/window/{windowHandle}/size"));
-            this.commandDictionary.Add(
-                DriverCommand.SetWindowSize,
-                new CommandInfo("POST", "/session/{sessionId}/window/{windowHandle}/size"));
-            this.commandDictionary.Add(
-                DriverCommand.GetWindowPosition,
-                new CommandInfo("GET", "/session/{sessionId}/window/{windowHandle}/position"));
-            this.commandDictionary.Add(
-                DriverCommand.SetWindowPosition,
-                new CommandInfo("POST", "/session/{sessionId}/window/{windowHandle}/position"));
-            this.commandDictionary.Add(
-                DriverCommand.MaximizeWindow,
-                new CommandInfo("POST", "/session/{sessionId}/window/{windowHandle}/maximize"));
+            
+            
             this.commandDictionary.Add(
                 DriverCommand.GetOrientation,
                 new CommandInfo("GET", "/session/{sessionId}/orientation"));

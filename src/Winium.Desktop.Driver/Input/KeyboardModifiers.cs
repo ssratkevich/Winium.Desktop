@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using OpenQA.Selenium;
 using WindowsInput;
 
@@ -6,8 +7,6 @@ namespace Winium.Desktop.Driver.Input
 {
     internal class KeyboardModifiers : List<string>
     {
-        #region Static Fields
-
         private static readonly HashSet<string> Modifiers = 
             new HashSet<string>
             {
@@ -85,10 +84,6 @@ namespace Winium.Desktop.Driver.Input
                 //{ Keys.Command, VirtualKeyCode.LWIN },
             };
 
-        #endregion
-
-        #region Public Methods and Operators
-
         public static string GetKeyFromUnicode(char key) =>
             KeysMap.ContainsKey(key.ToString()) ? key.ToString() : null;
 
@@ -101,6 +96,24 @@ namespace Winium.Desktop.Driver.Input
         public static bool HasMapping(char key) =>
             KeysMap.ContainsKey(key.ToString());
 
-        #endregion
+        public static bool TryGetVirtualKeyCode(char key, out VirtualKeyCode virtualKey)
+        {
+            if(KeysMap.TryGetValue(key.ToString(), out virtualKey))
+            {
+                return true;
+            }
+            try
+            {
+                virtualKey = (VirtualKeyCode) VkKeyScan(key);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        [DllImport("user32.dll")]
+        private static extern short VkKeyScan(char ch);
     }
 }

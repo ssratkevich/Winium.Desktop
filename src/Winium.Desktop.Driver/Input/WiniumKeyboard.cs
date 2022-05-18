@@ -126,6 +126,14 @@ namespace Winium.Desktop.Driver.Input
 
         private void Type(char key)
         {
+            // First try.
+            if (this.modifiers.Count > 0 && KeyboardModifiers.TryGetVirtualKeyCode(key, out var virtualKey))
+            {
+                CruciatusFactory.Keyboard.KeyDown(virtualKey);
+                CruciatusFactory.Keyboard.KeyUp(virtualKey);
+                return;
+            }
+
             string str = Convert.ToString(key);
 
             if (this.modifiers.Contains(Keys.LeftShift) || this.modifiers.Contains(Keys.Shift))

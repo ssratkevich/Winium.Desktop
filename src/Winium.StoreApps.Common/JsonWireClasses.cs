@@ -9,20 +9,28 @@ namespace Winium.StoreApps.Common
     /// </summary>
     public class JsonElementContent
     {
+        private string element;
+
         /// <summary>
         /// Creates JSON element content with given element UID.
         /// </summary>
         /// <param name="element">Element UID.</param>
         public JsonElementContent(string element)
         {
-            this.Element = element;
+            this.element = element;
         }
 
         /// <summary>
         /// Element UID.
         /// </summary>
         [JsonProperty("ELEMENT")]
-        public string Element { get; set; }
+        public string Element { get => this.element; set => this.element = value; }
+
+        /// <summary>
+        /// Element UID according to https://w3c.github.io/webdriver/#dfn-web-element-identifier.
+        /// </summary>
+        [JsonProperty("element-6066-11e4-a52e-4f735466cecf")]
+        public string NewElement { get => this.element; set => this.element = value; }
     }
 
     /// <summary>
