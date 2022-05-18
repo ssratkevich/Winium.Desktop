@@ -179,47 +179,6 @@ namespace Winium.Desktop.Driver
             // Absent POST /session/{sessionId}/window/minimize   Minimize Window
             // Absent POST /session/{sessionId}/window/fullscreen Fullscreen Window
 
-
-            this.commandDictionary.Add(DriverCommand.DefineDriverMapping, new CommandInfo("POST", "/config/drivers"));
-            
-            
-            this.commandDictionary.Add(DriverCommand.GetSessionList, new CommandInfo("GET", "/sessions"));
-            this.commandDictionary.Add(
-                DriverCommand.GetSessionCapabilities,
-                new CommandInfo("GET", "/session/{sessionId}"));
-
-            this.commandDictionary.Add(
-                DriverCommand.ExecuteScript,
-                new CommandInfo("POST", "/session/{sessionId}/execute"));
-            this.commandDictionary.Add(
-                DriverCommand.ExecuteAsyncScript,
-                new CommandInfo("POST", "/session/{sessionId}/execute_async"));
-            this.commandDictionary.Add(
-                DriverCommand.Screenshot,
-                new CommandInfo("GET", "/session/{sessionId}/screenshot"));
-
-            
-            this.commandDictionary.Add(
-                DriverCommand.GetAllCookies,
-                new CommandInfo("GET", "/session/{sessionId}/cookie"));
-            this.commandDictionary.Add(DriverCommand.AddCookie, new CommandInfo("POST", "/session/{sessionId}/cookie"));
-            this.commandDictionary.Add(
-                DriverCommand.DeleteAllCookies,
-                new CommandInfo("DELETE", "/session/{sessionId}/cookie"));
-            this.commandDictionary.Add(
-                DriverCommand.DeleteCookie,
-                new CommandInfo("DELETE", "/session/{sessionId}/cookie/{name}"));
-            this.commandDictionary.Add(
-                DriverCommand.GetPageSource,
-                new CommandInfo("GET", "/session/{sessionId}/source"));
-            
-            this.commandDictionary.Add(
-                DriverCommand.FindElement,
-                new CommandInfo("POST", "/session/{sessionId}/element"));
-            this.commandDictionary.Add(
-                DriverCommand.FindElements,
-                new CommandInfo("POST", "/session/{sessionId}/elements"));
-
             this.commandDictionary.Add(
                 DriverCommand.GetActiveElement,
                 new CommandInfo("POST", "/session/{sessionId}/element/active"));
@@ -227,38 +186,157 @@ namespace Winium.Desktop.Driver
             // Absent GET	/session/{session id}/element/{element id}/shadow	Get Element Shadow Root
 
             this.commandDictionary.Add(
+                DriverCommand.FindElement,
+                new CommandInfo("POST", "/session/{sessionId}/element"));
+
+            this.commandDictionary.Add(
+                DriverCommand.FindElements,
+                new CommandInfo("POST", "/session/{sessionId}/elements"));
+
+            // Wrong name. Must be "Find Element From Element"
+            this.commandDictionary.Add(
                 DriverCommand.FindChildElement,
                 new CommandInfo("POST", "/session/{sessionId}/element/{id}/element"));
+
+            // Wrong name. Must be "Find Elements From Element"
             this.commandDictionary.Add(
                 DriverCommand.FindChildElements,
                 new CommandInfo("POST", "/session/{sessionId}/element/{id}/elements"));
-            this.commandDictionary.Add(
-                DriverCommand.DescribeElement,
-                new CommandInfo("GET", "/session/{sessionId}/element/{id}"));
-            this.commandDictionary.Add(
-                DriverCommand.ClickElement,
-                new CommandInfo("POST", "/session/{sessionId}/element/{id}/click"));
-            this.commandDictionary.Add(
-                DriverCommand.GetElementText,
-                new CommandInfo("GET", "/session/{sessionId}/element/{id}/text"));
-            this.commandDictionary.Add(
-                DriverCommand.SubmitElement,
-                new CommandInfo("POST", "/session/{sessionId}/element/{id}/submit"));
-            this.commandDictionary.Add(
-                DriverCommand.SendKeysToElement,
-                new CommandInfo("POST", "/session/{sessionId}/element/{id}/value"));
-            this.commandDictionary.Add(
-                DriverCommand.GetElementTagName,
-                new CommandInfo("GET", "/session/{sessionId}/element/{id}/name"));
-            this.commandDictionary.Add(
-                DriverCommand.ClearElement,
-                new CommandInfo("POST", "/session/{sessionId}/element/{id}/clear"));
+
+            // Absent POST	/session/{session id}/shadow/{shadow id}/element	Find Element From Shadow Root
+            // Absent POST	/session/{session id}/shadow/{shadow id}/elements	Find Elements From Shadow Root
+
             this.commandDictionary.Add(
                 DriverCommand.IsElementSelected,
                 new CommandInfo("GET", "/session/{sessionId}/element/{id}/selected"));
+
+            this.commandDictionary.Add(
+                DriverCommand.GetElementAttribute,
+                new CommandInfo("GET", "/session/{sessionId}/element/{id}/attribute/{name}"));
+
+            // Absent GET	/session/{session id}/element/{element id}/property/{name}	Get Element Property
+
+            // Wrong name. Must be "Get Element CSS Value"
+            this.commandDictionary.Add(
+               DriverCommand.GetElementValueOfCssProperty,
+               new CommandInfo("GET", "/session/{sessionId}/element/{id}/css/{propertyName}"));
+
+            this.commandDictionary.Add(
+                DriverCommand.GetElementText,
+                new CommandInfo("GET", "/session/{sessionId}/element/{id}/text"));
+
+            this.commandDictionary.Add(
+                DriverCommand.GetElementTagName,
+                new CommandInfo("GET", "/session/{sessionId}/element/{id}/name"));
+
+            // Absent GET	/session/{session id}/element/{element id}/rect	Get Element Rect
+
             this.commandDictionary.Add(
                 DriverCommand.IsElementEnabled,
                 new CommandInfo("GET", "/session/{sessionId}/element/{id}/enabled"));
+
+            // Absent GET	/session/{session id}/element/{element id}/computedrole	    Get Computed Role
+            // Absent GET	/session/{session id}/element/{element id}/computedlabel	Get Computed Label
+
+            // Wrong name. Must be "Element Click"
+            this.commandDictionary.Add(
+                DriverCommand.ClickElement,
+                new CommandInfo("POST", "/session/{sessionId}/element/{id}/click"));
+
+            // Wrong name. Must be "Element Clear"
+            this.commandDictionary.Add(
+                DriverCommand.ClearElement,
+                new CommandInfo("POST", "/session/{sessionId}/element/{id}/clear"));
+
+            // Wrong name. Must be "Element Send Keys"
+            this.commandDictionary.Add(
+                DriverCommand.SendKeysToElement,
+                new CommandInfo("POST", "/session/{sessionId}/element/{id}/value"));
+
+            this.commandDictionary.Add(
+                DriverCommand.GetPageSource,
+                new CommandInfo("GET", "/session/{sessionId}/source"));
+
+            // Wrong adress. Must be "/session/{session id}/execute/sync"
+            this.commandDictionary.Add(
+                DriverCommand.ExecuteScript,
+                new CommandInfo("POST", "/session/{sessionId}/execute"));
+
+            // Wrong adress. Must be "/session/{session id}/execute/async"
+            this.commandDictionary.Add(
+                DriverCommand.ExecuteAsyncScript,
+                new CommandInfo("POST", "/session/{sessionId}/execute_async"));
+
+            this.commandDictionary.Add(
+                DriverCommand.GetAllCookies,
+                new CommandInfo("GET", "/session/{sessionId}/cookie"));
+
+            // Absent GET	/session/{session id}/cookie/{name}	Get Named Cookie
+
+            this.commandDictionary.Add(
+                DriverCommand.AddCookie,
+                new CommandInfo("POST", "/session/{sessionId}/cookie"));
+
+            this.commandDictionary.Add(
+                DriverCommand.DeleteCookie,
+                new CommandInfo("DELETE", "/session/{sessionId}/cookie/{name}"));
+
+            this.commandDictionary.Add(
+                DriverCommand.DeleteAllCookies,
+                new CommandInfo("DELETE", "/session/{sessionId}/cookie"));
+
+            // Absent POST	    /session/{session id}/actions	Perform Actions
+            // Absent DELETE	/session/{session id}/actions	Release Actions
+
+            // Wrong address. Must be "/session/{session id}/alert/dismiss"
+            this.commandDictionary.Add(
+                DriverCommand.DismissAlert,
+                new CommandInfo("POST", "/session/{sessionId}/dismiss_alert"));
+
+            // Wrong address. Must be "/session/{session id}/alert/accept"
+            this.commandDictionary.Add(
+                DriverCommand.AcceptAlert,
+                new CommandInfo("POST", "/session/{sessionId}/accept_alert"));
+
+            // Wrong address. Must be "/session/{session id}/alert/text"
+            this.commandDictionary.Add(
+                DriverCommand.GetAlertText,
+                new CommandInfo("GET", "/session/{sessionId}/alert_text"));
+
+            // Wrong address. Must be "/session/{session id}/alert/text"
+            this.commandDictionary.Add(
+                DriverCommand.SetAlertValue,
+                new CommandInfo("POST", "/session/{sessionId}/alert_text"));
+
+            // Wrong name. Must be "Take Screenshot"
+            this.commandDictionary.Add(
+                DriverCommand.Screenshot,
+                new CommandInfo("GET", "/session/{sessionId}/screenshot"));
+
+            // Absent GET	/session/{session id}/element/{element id}/screenshot	Take Element Screenshot
+
+            // Absent POST	/session/{session id}/print	Print Page
+
+            // All other commands is not described.
+
+            this.commandDictionary.Add(DriverCommand.DefineDriverMapping, new CommandInfo("POST", "/config/drivers"));
+            
+            this.commandDictionary.Add(DriverCommand.GetSessionList, new CommandInfo("GET", "/sessions"));
+            
+            this.commandDictionary.Add(
+                DriverCommand.GetSessionCapabilities,
+                new CommandInfo("GET", "/session/{sessionId}"));
+
+            this.commandDictionary.Add(
+                DriverCommand.DescribeElement,
+                new CommandInfo("GET", "/session/{sessionId}/element/{id}"));
+            
+            
+            this.commandDictionary.Add(
+                DriverCommand.SubmitElement,
+                new CommandInfo("POST", "/session/{sessionId}/element/{id}/submit"));
+            
+            
             this.commandDictionary.Add(
                 DriverCommand.IsElementDisplayed,
                 new CommandInfo("GET", "/session/{sessionId}/element/{id}/displayed"));
@@ -271,12 +349,8 @@ namespace Winium.Desktop.Driver
             this.commandDictionary.Add(
                 DriverCommand.GetElementSize,
                 new CommandInfo("GET", "/session/{sessionId}/element/{id}/size"));
-            this.commandDictionary.Add(
-                DriverCommand.GetElementValueOfCssProperty,
-                new CommandInfo("GET", "/session/{sessionId}/element/{id}/css/{propertyName}"));
-            this.commandDictionary.Add(
-                DriverCommand.GetElementAttribute,
-                new CommandInfo("GET", "/session/{sessionId}/element/{id}/attribute/{name}"));
+           
+            
             this.commandDictionary.Add(
                 DriverCommand.ElementEquals,
                 new CommandInfo("GET", "/session/{sessionId}/element/{id}/equals/{other}"));
@@ -288,18 +362,7 @@ namespace Winium.Desktop.Driver
             this.commandDictionary.Add(
                 DriverCommand.SetOrientation,
                 new CommandInfo("POST", "/session/{sessionId}/orientation"));
-            this.commandDictionary.Add(
-                DriverCommand.DismissAlert,
-                new CommandInfo("POST", "/session/{sessionId}/dismiss_alert"));
-            this.commandDictionary.Add(
-                DriverCommand.AcceptAlert,
-                new CommandInfo("POST", "/session/{sessionId}/accept_alert"));
-            this.commandDictionary.Add(
-                DriverCommand.GetAlertText,
-                new CommandInfo("GET", "/session/{sessionId}/alert_text"));
-            this.commandDictionary.Add(
-                DriverCommand.SetAlertValue,
-                new CommandInfo("POST", "/session/{sessionId}/alert_text"));
+            
             
             this.commandDictionary.Add(DriverCommand.MouseClick, new CommandInfo("POST", "/session/{sessionId}/click"));
             this.commandDictionary.Add(
