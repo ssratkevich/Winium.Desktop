@@ -113,7 +113,7 @@ namespace Winium.Desktop.Driver.Input
             }
         }
 
-        [DllImport("user32.dll")]
+        [DllImport("user32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
         private static extern short VkKeyScan(char ch);
     }
 }

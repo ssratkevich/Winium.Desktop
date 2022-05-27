@@ -71,7 +71,8 @@
         {
             try
             {
-                this.listener = new TcpListener(IPAddress.Any, this.Port);
+                this.listener = new TcpListener(IPAddress.IPv6Any, this.Port);
+                this.listener.Server.SetSocketOption(SocketOptionLevel.IPv6, SocketOptionName.IPv6Only, false);
 
                 this.Prefix = new Uri(string.Format(CultureInfo.InvariantCulture, "http://localhost:{0}", this.Port));
                 this.dispatcher = new UriDispatchTables(new Uri(this.Prefix, UrnPrefix));
