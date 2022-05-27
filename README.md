@@ -9,6 +9,10 @@ The goal of this fork is to actualize project to current state of .NET world, ex
 because parent project is not updated since 2016 and it has huge amount of open issues, bugs and improvements found or suggested by community.
 Hope, that together we'll bring it back to life.
 
+The general way of `Winium` operation is given below.
+![GeneralScheme](GeneralScheme.png)
+
+
 ## Contributing
 
 Contributions are welcome!
