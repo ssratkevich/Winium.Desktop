@@ -1,14 +1,10 @@
-﻿namespace Winium.Desktop.Driver
+﻿using System.ComponentModel;
+
+using NLog;
+using NLog.Targets;
+
+namespace Winium.Desktop.Driver
 {
-    #region using
-
-    using System.ComponentModel;
-
-    using NLog;
-    using NLog.Targets;
-
-    #endregion
-
     internal static class Logger
     {
         #region Constants

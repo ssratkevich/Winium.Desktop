@@ -1,20 +1,14 @@
-﻿namespace Winium.Desktop.Driver
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using System.Net;
+using Newtonsoft.Json;
+using Winium.StoreApps.Common;
+using Winium.StoreApps.Common.Exceptions;
+
+namespace Winium.Desktop.Driver
 {
-    #region using
-
-    using System;
-    using System.Collections.Generic;
-    using System.Globalization;
-    using System.IO;
-    using System.Net;
-
-    using Newtonsoft.Json;
-
-    using Winium.StoreApps.Common;
-    using Winium.StoreApps.Common.Exceptions;
-
-    #endregion
-
     internal class Requester
     {
         #region Fields

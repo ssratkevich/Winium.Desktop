@@ -1,19 +1,13 @@
-﻿namespace Winium.Desktop.Driver.CommandExecutors
+﻿using Winium.Cruciatus.Elements;
+using Winium.Cruciatus.Exceptions;
+using Winium.Cruciatus.Extensions;
+using Winium.Desktop.Driver.Extensions;
+using Winium.StoreApps.Common;
+
+namespace Winium.Desktop.Driver.CommandExecutors
 {
-    #region using
-
-    using Winium.Cruciatus.Elements;
-    using Winium.Cruciatus.Exceptions;
-    using Winium.Cruciatus.Extensions;
-    using Winium.Desktop.Driver.Extensions;
-    using Winium.StoreApps.Common;
-
-    #endregion
-
     internal class ScrollToListBoxItemExecutor : CommandExecutorBase
     {
-        #region Methods
-
         protected override string DoImpl()
         {
             var dataGridKey = this.ExecutedCommand.Parameters["ID"].ToString();
@@ -38,7 +32,5 @@
 
             return this.JsonResponse(ResponseStatus.Success, new JsonElementContent(elementKey));
         }
-
-        #endregion
     }
 }

@@ -1,20 +1,14 @@
-﻿namespace Winium.Desktop.Driver.CommandExecutors
+﻿extern alias UIAComWrapper;
+using System;
+using Winium.Cruciatus.Extensions;
+using Winium.Desktop.Driver.Extensions;
+using Winium.StoreApps.Common;
+using Automation = UIAComWrapper::System.Windows.Automation;
+
+namespace Winium.Desktop.Driver.CommandExecutors
 {
-    #region using
-
-    using System;
-    using System.Windows.Automation;
-
-    using Winium.Cruciatus.Extensions;
-    using Winium.Desktop.Driver.Extensions;
-    using Winium.StoreApps.Common;
-
-    #endregion
-
     internal class GetElementAttributeExecutor : CommandExecutorBase
     {
-        #region Methods
-
         protected override string DoImpl()
         {
             var registeredKey = this.ExecutedCommand.Parameters["ID"].ToString();
@@ -42,7 +36,7 @@
          */
         private static object PrepareValueToSerialize(object obj)
         {
-            if (obj == null)
+            if (obj is null)
             {
                 return null;
             }
@@ -52,15 +46,13 @@
                 return obj.ToString();
             }
 
-            var controlType = obj as ControlType;
-            if (controlType != null)
+            var controlType = obj as Automation::ControlType;
+            if (controlType is not null)
             {
                 return controlType.ProgrammaticName;
             }
 
             return obj;
         }
-
-        #endregion
     }
 }

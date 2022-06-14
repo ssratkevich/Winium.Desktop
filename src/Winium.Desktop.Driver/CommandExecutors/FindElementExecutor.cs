@@ -1,18 +1,12 @@
-﻿namespace Winium.Desktop.Driver.CommandExecutors
+﻿using Winium.Cruciatus;
+using Winium.Desktop.Driver.Extensions;
+using Winium.StoreApps.Common;
+using Winium.StoreApps.Common.Exceptions;
+
+namespace Winium.Desktop.Driver.CommandExecutors
 {
-    #region using
-
-    using Winium.Cruciatus;
-    using Winium.Desktop.Driver.Extensions;
-    using Winium.StoreApps.Common;
-    using Winium.StoreApps.Common.Exceptions;
-
-    #endregion
-
     internal class FindElementExecutor : CommandExecutorBase
     {
-        #region Methods
-
         protected override string DoImpl()
         {
             var searchValue = this.ExecutedCommand.Parameters["value"].ToString();
@@ -29,7 +23,5 @@
             var registeredObject = new JsonElementContent(registeredKey);
             return this.JsonResponse(ResponseStatus.Success, registeredObject);
         }
-
-        #endregion
     }
 }

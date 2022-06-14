@@ -1,32 +1,30 @@
-﻿namespace Winium.Desktop.Driver.CommandExecutors
+﻿extern alias UIAComWrapper;
+using System.Linq;
+using Winium.Cruciatus;
+using Winium.Cruciatus.Core;
+using Winium.Cruciatus.Extensions;
+using Winium.StoreApps.Common;
+using Automation = UIAComWrapper::System.Windows.Automation;
+
+namespace Winium.Desktop.Driver.CommandExecutors
 {
-    #region using
-
-    using System.Linq;
-    using System.Windows.Automation;
-
-    using Winium.Cruciatus;
-    using Winium.Cruciatus.Core;
-    using Winium.Cruciatus.Extensions;
-    using Winium.StoreApps.Common;
-
-    #endregion
-
     internal class GetWindowHandlesExecutor : CommandExecutorBase
     {
-        #region Methods
-
         protected override string DoImpl()
         {
-            var typeProperty = AutomationElement.ControlTypeProperty;
-            var windows = CruciatusFactory.Root.FindElements(By.AutomationProperty(typeProperty, ControlType.Window));
+            var windows = 
+                CruciatusFactory.Root
+                    .FindElements(
+                        By.AutomationProperty(
+                            Automation::AutomationElement.ControlTypeProperty,
+                            Automation::ControlType.Window));
 
-            var handleProperty = AutomationElement.NativeWindowHandleProperty;
-            var handles = windows.Select(element => element.GetAutomationPropertyValue<int>(handleProperty));
+            var handles =
+                windows.Select(element => 
+                    element.GetAutomationPropertyValue<int>(
+                        Automation::AutomationElement.NativeWindowHandleProperty));
 
             return this.JsonResponse(ResponseStatus.Success, handles);
         }
-
-        #endregion
     }
 }

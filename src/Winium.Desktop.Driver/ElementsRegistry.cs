@@ -1,18 +1,13 @@
-﻿namespace Winium.Desktop.Driver
+﻿using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Threading;
+using Winium.Cruciatus.Elements;
+using Winium.StoreApps.Common;
+using Winium.StoreApps.Common.Exceptions;
+
+namespace Winium.Desktop.Driver
 {
-    #region using
-
-    using System.Collections.Generic;
-    using System.Globalization;
-    using System.Linq;
-    using System.Threading;
-
-    using Winium.Cruciatus.Elements;
-    using Winium.StoreApps.Common;
-    using Winium.StoreApps.Common.Exceptions;
-
-    #endregion
-
     internal class ElementsRegistry
     {
         #region Static Fields

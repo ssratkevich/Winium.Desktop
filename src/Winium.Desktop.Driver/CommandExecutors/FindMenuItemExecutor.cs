@@ -1,17 +1,11 @@
-﻿namespace Winium.Desktop.Driver.CommandExecutors
+﻿using Winium.Cruciatus.Extensions;
+using Winium.StoreApps.Common;
+using Winium.StoreApps.Common.Exceptions;
+
+namespace Winium.Desktop.Driver.CommandExecutors
 {
-    #region using
-
-    using Winium.Cruciatus.Extensions;
-    using Winium.StoreApps.Common;
-    using Winium.StoreApps.Common.Exceptions;
-
-    #endregion
-
     internal class FindMenuItemExecutor : CommandExecutorBase
     {
-        #region Methods
-
         protected override string DoImpl()
         {
             var dataGridKey = this.ExecutedCommand.Parameters["ID"].ToString();
@@ -29,7 +23,5 @@
 
             return this.JsonResponse(ResponseStatus.Success, new JsonElementContent(elementKey));
         }
-
-        #endregion
     }
 }

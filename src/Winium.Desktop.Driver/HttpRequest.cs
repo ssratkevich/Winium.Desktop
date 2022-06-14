@@ -1,15 +1,11 @@
-﻿namespace Winium.Desktop.Driver
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+
+namespace Winium.Desktop.Driver
 {
-    #region using
-
-    using System;
-    using System.Collections.Generic;
-    using System.Globalization;
-    using System.IO;
-    using System.Linq;
-
-    #endregion
-
     public class HttpRequest
     {
         #region Public Properties

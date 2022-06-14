@@ -1,18 +1,11 @@
-﻿namespace Winium.Desktop.Driver.CommandExecutors
+﻿using System;
+using Winium.Cruciatus;
+using Winium.StoreApps.Common;
+
+namespace Winium.Desktop.Driver.CommandExecutors
 {
-    #region using
-
-    using System;
-
-    using Winium.Cruciatus;
-    using Winium.StoreApps.Common;
-
-    #endregion
-
     internal class MouseMoveToExecutor : CommandExecutorBase
     {
-        #region Methods
-
         protected override string DoImpl()
         {
             var haveElement = this.ExecutedCommand.Parameters.ContainsKey("element");
@@ -33,8 +26,8 @@
                 if (element != null)
                 {
                     var rect = element.Properties.BoundingRectangle;
-                    resultPoint.X = rect.TopLeft.X;
-                    resultPoint.Y = rect.TopLeft.Y;
+                    resultPoint.X = rect.X;
+                    resultPoint.Y = rect.Y;
                     if (!haveOffset)
                     {
                         resultPoint.X += rect.Width / 2;
@@ -53,7 +46,5 @@
 
             return this.JsonResponse();
         }
-
-        #endregion
     }
 }

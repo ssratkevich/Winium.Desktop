@@ -6,8 +6,6 @@ namespace Winium.Desktop.Driver.CommandExecutors
 {
     internal class SendKeysToActiveElementExecutor : CommandExecutorBase
     {
-        #region Methods
-
         protected override string DoImpl()
         {
             var chars = this.ExecutedCommand.Parameters["value"]
@@ -17,7 +15,5 @@ namespace Winium.Desktop.Driver.CommandExecutors
 
             return this.JsonResponse();
         }
-
-        #endregion
     }
 }
