@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <Version>2.0.1</Version>
+    <Version>2.1.0</Version>
     <Title>Winium.Desktop.Driver</Title>
     <Description>Selenium Remote WebDriver implementation for Windows applications automation test.</Description>
     <Product>Winium.Desktop.Driver - a Windows applications automation driver.</Product>
@@ -23,7 +23,7 @@
   <ItemGroup>
     <PackageReference Include="CommandLineParser" Version="2.8.0" />
     <PackageReference Include="SimpleSyndicate.UriTemplate" Version="1.0.3" />
-    <PackageReference Include="Syntellect.Winium.Cruciatus" Version="3.0.1" />
+    <PackageReference Include="Syntellect.Winium.Cruciatus" Version="3.1.0" />
     <PackageReference Include="System.ServiceModel.Federation" Version="4.8.1" />
     <PackageReference Include="Selenium.WebDriver" Version="3.141.0" />
     <PackageReference Include="Microsoft.Windows.Compatibility" Version="6.0.0" />
