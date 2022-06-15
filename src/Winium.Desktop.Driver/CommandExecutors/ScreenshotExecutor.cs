@@ -1,16 +1,10 @@
-﻿namespace Winium.Desktop.Driver.CommandExecutors
+﻿using Winium.Cruciatus;
+using Winium.StoreApps.Common;
+
+namespace Winium.Desktop.Driver.CommandExecutors
 {
-    #region using
-
-    using Winium.Cruciatus;
-    using Winium.StoreApps.Common;
-
-    #endregion
-
     internal class ScreenshotExecutor : CommandExecutorBase
     {
-        #region Methods
-
         protected override string DoImpl()
         {
             var screenshot = CruciatusFactory.Screenshoter.GetScreenshot();
@@ -18,7 +12,5 @@
 
             return this.JsonResponse(ResponseStatus.Success, screenshotSource);
         }
-
-        #endregion
     }
 }

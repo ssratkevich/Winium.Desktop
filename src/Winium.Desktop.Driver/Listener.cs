@@ -1,17 +1,12 @@
-﻿namespace Winium.Desktop.Driver
+﻿using System;
+using System.Globalization;
+using System.IO;
+using System.Net;
+using System.Net.Sockets;
+using Winium.StoreApps.Common;
+
+namespace Winium.Desktop.Driver
 {
-    #region using
-
-    using System;
-    using System.Globalization;
-    using System.IO;
-    using System.Net;
-    using System.Net.Sockets;
-
-    using Winium.StoreApps.Common;
-
-    #endregion
-
     public class Listener
     {
         #region Static Fields

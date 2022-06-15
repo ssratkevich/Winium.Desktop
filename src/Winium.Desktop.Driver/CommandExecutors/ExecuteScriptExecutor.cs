@@ -1,12 +1,13 @@
-﻿using System.Collections.Generic;
+﻿extern alias UIAComWrapper;
+using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Automation;
 using Newtonsoft.Json.Linq;
 using Winium.Cruciatus.Core;
 using Winium.Cruciatus.Elements;
 using Winium.Cruciatus.Extensions;
 using Winium.StoreApps.Common;
 using Winium.StoreApps.Common.Exceptions;
+using Automation = UIAComWrapper::System.Windows.Automation;
 
 namespace Winium.Desktop.Driver.CommandExecutors
 {
@@ -94,13 +95,13 @@ namespace Winium.Desktop.Driver.CommandExecutors
                     this.ValuePatternSetValue(element, args);
                     break;
                 case "ScrollItemPattern.ScrollIntoView":
-                    element.GetPattern<ScrollItemPattern>(ScrollItemPattern.Pattern).ScrollIntoView();
+                    element.GetPattern<Automation::ScrollItemPattern>(Automation::ScrollItemPattern.Pattern).ScrollIntoView();
                     break;
                 case "ScrollIntoView":
                     element.ScrollIntoView(this.TryGetElement(args.ElementAtOrDefault(1)));
                     break;
                 case "SelectionItemPattern.Select":
-                    element.GetPattern<SelectionItemPattern>(SelectionItemPattern.Pattern).Select();
+                    element.GetPattern<Automation::SelectionItemPattern>(Automation::SelectionItemPattern.Pattern).Select();
                     break;
                 case "ExpandCollapsePattern.Expand":
                     ExpandCollapse(element, args);
@@ -123,7 +124,7 @@ namespace Winium.Desktop.Driver.CommandExecutors
                 throw new AutomationException(msg, ResponseStatus.JavaScriptError);
             }
 
-            element.GetPattern<ValuePattern>(ValuePattern.Pattern).SetValue(value.ToString());
+            element.GetPattern<Automation::ValuePattern>(Automation::ValuePattern.Pattern).SetValue(value.ToString());
         }
 
         private void ExpandCollapse(CruciatusElement element, IEnumerable<JToken> args)
@@ -134,7 +135,7 @@ namespace Winium.Desktop.Driver.CommandExecutors
             {
                 bool.TryParse(value.ToString(), out expand);
             }
-            var pattern = element.GetPattern<ExpandCollapsePattern>(ExpandCollapsePattern.Pattern);
+            var pattern = element.GetPattern<Automation::ExpandCollapsePattern>(Automation::ExpandCollapsePattern.Pattern);
             if (expand)
             {
                 pattern.Expand();

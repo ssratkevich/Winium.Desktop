@@ -1,18 +1,11 @@
+using System;
+using Winium.StoreApps.Common;
+using Winium.Cruciatus.Core;
+
 namespace Winium.Desktop.Driver.CommandExecutors
 {
-    #region using
-
-    using System;
-
-    using Winium.StoreApps.Common;
-    using Winium.Cruciatus.Core;
-
-    #endregion using
-
     internal class SetOrientationExecutor : CommandExecutorBase
     {
-        #region Methods
-
         protected override string DoImpl()
         {
             if (!this.ExecutedCommand.Parameters.ContainsKey("orientation"))
@@ -47,7 +40,5 @@ namespace Winium.Desktop.Driver.CommandExecutors
             Logger.Warn(message);
             return this.JsonResponse(ResponseStatus.UnknownError, message);
         }
-
-        #endregion
     }
 }

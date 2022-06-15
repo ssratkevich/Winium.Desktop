@@ -1,18 +1,24 @@
-﻿namespace Winium.Desktop.Driver.Extensions
+﻿extern alias UIAComWrapper;
+using System;
+using Winium.Cruciatus.Core;
+using Automation = UIAComWrapper::System.Windows.Automation;
+
+namespace Winium.Desktop.Driver.Extensions
 {
-    #region using
-
-    using System;
-    using System.Windows.Automation;
-
-    using Winium.Cruciatus.Core;
-
-    #endregion
-
+    /// <summary>
+    /// Element search strategy helper.
+    /// </summary>
     public static class ByHelper
     {
         #region Public Methods and Operators
 
+        /// <summary>
+        /// Get desired element search strategy by it's name.
+        /// </summary>
+        /// <param name="strategy">Strategy name.</param>
+        /// <param name="value">Search value.</param>
+        /// <returns>Search element strategy.</returns>
+        /// <exception cref="NotImplementedException"></exception>
         public static By GetStrategy(string strategy, string value)
         {
             switch (strategy)
@@ -22,7 +28,7 @@
                 case "name":
                     return By.Name(value);
                 case "class name":
-                    return By.AutomationProperty(AutomationElementIdentifiers.ClassNameProperty, value);
+                    return By.AutomationProperty(Automation::AutomationElementIdentifiers.ClassNameProperty, value);
                 case "xpath":
                     return By.XPath(value);
                 default:

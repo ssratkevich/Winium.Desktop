@@ -15,6 +15,7 @@
     <Authors>Syntellect, ssratkevich, 2gis</Authors>
     <Copyright>Copyright ©  2022</Copyright>
   </PropertyGroup>
+
   
   <ItemGroup>
     <ProjectReference Include="..\Winium.StoreApps.Common\Winium.StoreApps.Common.csproj" />
@@ -22,13 +23,15 @@
   <ItemGroup>
     <PackageReference Include="CommandLineParser" Version="2.8.0" />
     <PackageReference Include="SimpleSyndicate.UriTemplate" Version="1.0.3" />
+    <PackageReference Include="Syntellect.Winium.Cruciatus" Version="3.0.1" />
     <PackageReference Include="System.ServiceModel.Federation" Version="4.8.1" />
     <PackageReference Include="Selenium.WebDriver" Version="3.141.0" />
     <PackageReference Include="Microsoft.Windows.Compatibility" Version="6.0.0" />
-    <PackageReference Include="Syntellect.Winium.Cruciatus" Version="3.0.0" />
+    <PackageReference Include="UIAComWrapperNetstandard" Version="1.0.1">
+      <Aliases>UIAComWrapper</Aliases>
+    </PackageReference>
   </ItemGroup>
   <Target Name="AfterBuild" Condition=" '$(Configuration)' == 'Release' ">
     <MakeDir Directories="$(OutDir)Merge" />
-    <Exec Command="$(SolutionDir)packages\ILMerge.Tools.2.14.1208\tools\ILMerge.exe /target:exe /wildcards /ndebug /out:$(OutDir)Merge\Winium.Desktop.Driver.exe $(OutDir)Winium.Desktop.Driver.exe $(OutDir)*.dll" />
   </Target>
 </Project>

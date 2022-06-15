@@ -2,8 +2,6 @@
 {
     internal class ClickElementExecutor : CommandExecutorBase
     {
-        #region Methods
-
         protected override string DoImpl()
         {
             var registeredKey = this.ExecutedCommand.Parameters["ID"].ToString();
@@ -11,7 +9,5 @@
 
             return this.JsonResponse();
         }
-
-        #endregion
     }
 }

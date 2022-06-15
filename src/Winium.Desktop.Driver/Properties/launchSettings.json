@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Winium.Desktop.Driver": {
+      "commandName": "Project",
+      "commandLineArgs": "--verbose"
+    }
+  }
+}

@@ -1,18 +1,10 @@
-﻿namespace Winium.Desktop.Driver.CommandExecutors
+﻿using System;
+using Winium.Cruciatus;
+
+namespace Winium.Desktop.Driver.CommandExecutors
 {
-    #region using
-
-    using System;
-
-    using Winium.Cruciatus;
-    using Winium.StoreApps.Common;
-
-    #endregion
-
     internal class ImplicitlyWaitExecutor : CommandExecutorBase
     {
-        #region Methods
-
         protected override string DoImpl()
         {
             var timeout = this.ExecutedCommand.Parameters["ms"];
@@ -21,7 +13,5 @@
 
             return this.JsonResponse();
         }
-
-        #endregion
     }
 }

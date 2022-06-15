@@ -1,12 +1,8 @@
-﻿namespace Winium.Desktop.Driver
+﻿using System;
+using CommandLine;
+
+namespace Winium.Desktop.Driver
 {
-    #region using
-
-    using System;
-    using CommandLine;
-
-    #endregion
-
     internal class Program
     {
         #region Methods

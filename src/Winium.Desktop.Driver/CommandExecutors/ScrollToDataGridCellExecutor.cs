@@ -1,17 +1,11 @@
-﻿namespace Winium.Desktop.Driver.CommandExecutors
+﻿using Winium.Cruciatus.Exceptions;
+using Winium.Cruciatus.Extensions;
+using Winium.StoreApps.Common;
+
+namespace Winium.Desktop.Driver.CommandExecutors
 {
-    #region using
-
-    using Winium.Cruciatus.Exceptions;
-    using Winium.Cruciatus.Extensions;
-    using Winium.StoreApps.Common;
-
-    #endregion
-
     internal class ScrollToDataGridCellExecutor : CommandExecutorBase
     {
-        #region Methods
-
         protected override string DoImpl()
         {
             var dataGridKey = this.ExecutedCommand.Parameters["ID"].ToString();
@@ -31,7 +25,5 @@
 
             return this.JsonResponse();
         }
-
-        #endregion
     }
 }

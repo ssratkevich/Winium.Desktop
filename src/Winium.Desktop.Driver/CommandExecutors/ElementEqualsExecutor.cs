@@ -1,15 +1,9 @@
-﻿namespace Winium.Desktop.Driver.CommandExecutors
+﻿using Winium.StoreApps.Common;
+
+namespace Winium.Desktop.Driver.CommandExecutors
 {
-    #region using
-
-    using Winium.StoreApps.Common;
-
-    #endregion
-
     internal class ElementEqualsExecutor : CommandExecutorBase
     {
-        #region Methods
-
         protected override string DoImpl()
         {
             var registeredKey = this.ExecutedCommand.Parameters["ID"].ToString();
@@ -17,7 +11,5 @@
 
             return this.JsonResponse(ResponseStatus.Success, registeredKey == otherRegisteredKey);
         }
-
-        #endregion
     }
 }

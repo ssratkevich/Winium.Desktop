@@ -1,17 +1,12 @@
-﻿namespace Winium.Desktop.Driver
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using Winium.Desktop.Driver.CommandExecutors;
+using Winium.StoreApps.Common;
+
+namespace Winium.Desktop.Driver
 {
-    #region using
-
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Reflection;
-
-    using Winium.Desktop.Driver.CommandExecutors;
-    using Winium.StoreApps.Common;
-
-    #endregion
-
     internal class CommandExecutorDispatchTable
     {
         #region Fields
@@ -33,11 +28,7 @@
 
         public CommandExecutorBase GetExecutor(string commandName)
         {
-            Type executorType;
-            if (this.commandExecutorsRepository.TryGetValue(commandName, out executorType))
-            {
-            }
-            else
+            if (!this.commandExecutorsRepository.TryGetValue(commandName, out var executorType))
             {
                 executorType = typeof(NotImplementedExecutor);
             }

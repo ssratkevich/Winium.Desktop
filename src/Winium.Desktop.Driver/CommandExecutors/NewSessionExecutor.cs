@@ -11,8 +11,6 @@ namespace Winium.Desktop.Driver.CommandExecutors
 {
     internal class NewSessionExecutor : CommandExecutorBase
     {
-        #region Methods
-
         protected override string DoImpl()
         {
             // It is easier to reparse desired capabilities as JSON instead of re-mapping keys to attributes and calling type conversions, 
@@ -54,7 +52,5 @@ namespace Winium.Desktop.Driver.CommandExecutors
 
             Logger.Debug("Current keyboard simulator: {0}", keyboardSimulatorType);
         }
-
-        #endregion
     }
 }
