@@ -12,7 +12,7 @@ namespace Winium.Desktop.Driver.Extensions
     {
         #region Static Fields
 
-        private static readonly Dictionary<string, Automation::AutomationProperty> Properties = new();
+        private static readonly Dictionary<string, Automation::AutomationProperty> Properties;
 
         #endregion
 
@@ -20,24 +20,32 @@ namespace Winium.Desktop.Driver.Extensions
 
         static AutomationPropertyHelper()
         {
-            var assembly = typeof(Automation::AutomationElementIdentifiers).Assembly;
-            foreach(var type in assembly.GetTypes())
+            try
             {
-                if (!type.Name.EndsWith("Identifiers"))
+                Properties = new();
+                var assembly = typeof(Automation::AutomationElementIdentifiers).Assembly;
+                foreach (var type in assembly.GetTypes())
                 {
-                    continue;
+                    if (!type.Name.EndsWith("Identifiers"))
+                    {
+                        continue;
+                    }
+                    foreach (var property in type
+                        .GetFields(BindingFlags.Public | BindingFlags.Static)
+                        .Where(f => f.FieldType == typeof(Automation::AutomationProperty)))
+                    {
+                        Properties[property.Name] = (Automation::AutomationProperty) property.GetValue(null);
+                    }
                 }
-                foreach(var property in type
-                    .GetFields(BindingFlags.Public | BindingFlags.Static)
-                    .Where(f => f.FieldType == typeof(Automation::AutomationProperty)))
-                {
-                    Properties[property.Name] = (Automation::AutomationProperty)property.GetValue(null);
-                }
+                //Properties =
+                //    typeof(AutomationElementIdentifiers).GetFields(BindingFlags.Public | BindingFlags.Static)
+                //        .Where(f => f.FieldType == typeof(AutomationProperty))
+                //        .ToDictionary(f => f.Name, f => (AutomationProperty)f.GetValue(null));
             }
-            //Properties =
-            //    typeof(AutomationElementIdentifiers).GetFields(BindingFlags.Public | BindingFlags.Static)
-            //        .Where(f => f.FieldType == typeof(AutomationProperty))
-            //        .ToDictionary(f => f.Name, f => (AutomationProperty)f.GetValue(null));
+            catch(System.Exception)
+            {
+
+            }
         }
 
         #endregion
