@@ -22,6 +22,9 @@ namespace Winium.Desktop.Driver
         [Option("silent", Required = false, HelpText = "log nothing")]
         public bool Silent { get; set; }
 
+        [Option("searchDelay", Required = false, HelpText = "Element search delay")]
+        public uint? ElementSearchDelay { get; set; }
+
         #endregion
     }
 }

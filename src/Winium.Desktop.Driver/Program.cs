@@ -28,6 +28,11 @@ namespace Winium.Desktop.Driver
                 listeningPort = options.Port.Value;
             }
 
+            if (options.ElementSearchDelay.HasValue)
+            {
+                Cruciatus.CruciatusFactory.Settings.SearchTimeout = (int) options.ElementSearchDelay;
+            }
+
 
             if (options.LogPath != null)
             {
