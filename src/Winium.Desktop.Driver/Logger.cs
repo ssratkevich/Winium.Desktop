@@ -45,7 +45,7 @@ namespace Winium.Desktop.Driver
         {
             var target = new ConsoleTarget { Layout = LayoutFormat };
 
-            NLog.Config.SimpleConfigurator.ConfigureForTargetLogging(target, verbose ? LogLevel.Debug : LogLevel.Fatal);
+            NLog.Config.SimpleConfigurator.ConfigureForTargetLogging(target, true ? LogLevel.Debug : LogLevel.Fatal);
             LogManager.ReconfigExistingLoggers();
         }
 

@@ -24,7 +24,7 @@ namespace Winium.Desktop.Driver.CommandExecutors
                     element.GetAutomationPropertyValue<int>(
                         Automation::AutomationElement.NativeWindowHandleProperty));
 
-            return this.JsonResponse(ResponseStatus.Success, handles);
+            return this.JsonResponse(ErrorCodes.Success, handles);
         }
     }
 }

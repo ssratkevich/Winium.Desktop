@@ -9,7 +9,7 @@ namespace Winium.Desktop.Driver.CommandExecutors
             var registeredKey = this.ExecutedCommand.Parameters["ID"].ToString();
             var otherRegisteredKey = this.ExecutedCommand.Parameters["other"].ToString();
 
-            return this.JsonResponse(ResponseStatus.Success, registeredKey == otherRegisteredKey);
+            return this.JsonResponse(ErrorCodes.Success, registeredKey == otherRegisteredKey);
         }
     }
 }

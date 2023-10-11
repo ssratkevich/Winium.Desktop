@@ -13,17 +13,13 @@ namespace Winium.Desktop.Driver.CommandExecutors
     {
         protected override string DoImpl()
         {
-            // It is easier to reparse desired capabilities as JSON instead of re-mapping keys to attributes and calling type conversions, 
-            // so we will take possible one time performance hit by serializing Dictionary and deserializing it as Capabilities object
-            if (this.ExecutedCommand.Parameters.TryGetValue("desiredCapabilities", out var token))
-            {
-            }
-            else if (this.ExecutedCommand.Parameters.TryGetValue("capabilities", out token))
-            {
-                token = token["firstMatch"][0];
-            }
-            var serializedCapability = JsonConvert.SerializeObject(token);
-            this.Automator.ActualCapabilities = Capabilities.CapabilitiesFromJsonString(serializedCapability);
+            var capabilitiesArray = JObject.Parse(this.ExecutedCommand.Parameters["capabilities"].ToString());
+
+            var capabilityFirst = capabilitiesArray.First.First.Last;
+
+            var serializedCapabilities =
+                JsonConvert.SerializeObject(capabilityFirst);
+            this.Automator.ActualCapabilities = Capabilities.CapabilitiesFromJsonString(serializedCapabilities);
 
             this.InitializeApplication(this.Automator.ActualCapabilities.DebugConnectToRunningApp);
             this.InitializeKeyboardEmulator(this.Automator.ActualCapabilities.KeyboardSimulator);
@@ -31,18 +27,20 @@ namespace Winium.Desktop.Driver.CommandExecutors
             // Gives sometime to load visuals (needed only in case of slow emulation)
             Thread.Sleep(this.Automator.ActualCapabilities.LaunchDelay);
 
-            return this.JsonResponse(ResponseStatus.Success, this.Automator.ActualCapabilities);
+            return this.JsonResponse(ErrorCodes.Success, this.Automator.ActualCapabilities);
         }
 
         private void InitializeApplication(bool debugDoNotDeploy = false)
         {
-            var appPath = this.Automator.ActualCapabilities.App;
-            var appArguments = this.Automator.ActualCapabilities.Arguments;
+            string winDesk = JsonConvert.SerializeObject(this.Automator.ActualCapabilities.WinDesktopOptions);
+            var winDesktopOptions = JsonConvert.DeserializeObject<Capabilities.DesktopOptions>(winDesk);
+            var appPath = winDesktopOptions.App;
+            var appArguments = winDesktopOptions.Args;
 
             this.Automator.Application = new Application(appPath);
             if (!debugDoNotDeploy)
             {
-                this.Automator.Application.Start(appArguments);
+                this.Automator.Application.Start(appArguments.ToString());
             }
         }
 

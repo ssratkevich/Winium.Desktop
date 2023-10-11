@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net7.0-windows10.0.22621.0</TargetFramework>
     <OutputType>Exe</OutputType>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <UseWPF>true</UseWPF>
@@ -21,15 +21,20 @@
     <ProjectReference Include="..\Winium.StoreApps.Common\Winium.StoreApps.Common.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="CommandLineParser" Version="2.8.0" />
+    <PackageReference Include="CommandLineParser" Version="2.9.1" />
     <PackageReference Include="SimpleSyndicate.UriTemplate" Version="1.0.3" />
     <PackageReference Include="Syntellect.Winium.Cruciatus" Version="3.1.0" />
-    <PackageReference Include="System.ServiceModel.Federation" Version="4.8.1" />
-    <PackageReference Include="Selenium.WebDriver" Version="3.141.0" />
-    <PackageReference Include="Microsoft.Windows.Compatibility" Version="6.0.0" />
+    <PackageReference Include="System.ServiceModel.Federation" Version="6.0.0" />
+    <PackageReference Include="Selenium.WebDriver" Version="4.14.0" />
+    <PackageReference Include="Microsoft.Windows.Compatibility" Version="7.0.5" />
     <PackageReference Include="UIAComWrapperNetstandard" Version="1.0.1">
       <Aliases>UIAComWrapper</Aliases>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Winium.Cruciatus">
+      <HintPath>..\..\..\Winium.CruciatusUp\src\Winium.Cruciatus\bin\Debug\net7.0-windows\Winium.Cruciatus.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <Target Name="AfterBuild" Condition=" '$(Configuration)' == 'Release' ">
     <MakeDir Directories="$(OutDir)Merge" />

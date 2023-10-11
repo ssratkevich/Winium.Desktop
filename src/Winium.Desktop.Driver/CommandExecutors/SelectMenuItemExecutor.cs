@@ -19,7 +19,7 @@ namespace Winium.Desktop.Driver.CommandExecutors
             }
             catch (CruciatusException exception)
             {
-                return this.JsonResponse(ResponseStatus.NoSuchElement, exception);
+                return this.JsonResponse(ErrorCodes.NoSuchElement, exception);
             }
 
             return this.JsonResponse();

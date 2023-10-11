@@ -9,7 +9,7 @@ namespace Winium.Desktop.Driver.CommandExecutors
         {
             var orientation = RotationManager.GetCurrentOrientation();
 
-            return this.JsonResponse(ResponseStatus.Success, orientation.ToString());
+            return this.JsonResponse(ErrorCodes.Success, orientation.ToString());
         }
     }
 }

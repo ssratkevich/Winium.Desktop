@@ -11,7 +11,7 @@ namespace Winium.Desktop.Driver.CommandExecutors
             if (!this.ExecutedCommand.Parameters.ContainsKey("orientation"))
             {
                 // TODO: in the future '400 : invalid argument' will be used
-                return this.JsonResponse(ResponseStatus.UnknownError, "WRONG PARAMETERS");
+                return this.JsonResponse(ErrorCodes.UnknownError, "WRONG PARAMETERS");
             }
 
             var orientation = (DisplayOrientation)Enum.Parse(
@@ -38,7 +38,7 @@ namespace Winium.Desktop.Driver.CommandExecutors
             }
 
             Logger.Warn(message);
-            return this.JsonResponse(ResponseStatus.UnknownError, message);
+            return this.JsonResponse(ErrorCodes.UnknownError, message);
         }
     }
 }

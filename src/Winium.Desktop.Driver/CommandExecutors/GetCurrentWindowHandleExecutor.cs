@@ -20,7 +20,7 @@ namespace Winium.Desktop.Driver.CommandExecutors
             var result = (node == rootElement)
                              ? string.Empty
                              : node.Current.NativeWindowHandle.ToString(CultureInfo.InvariantCulture);
-            return this.JsonResponse(ResponseStatus.Success, result);
+            return this.JsonResponse(ErrorCodes.Success, result);
         }
     }
 }

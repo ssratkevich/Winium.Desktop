@@ -28,7 +28,7 @@ namespace Winium.Desktop.Driver.CommandExecutors
                 isSelected = toggleState == ToggleState.ToggleState_On;
             }
 
-            return this.JsonResponse(ResponseStatus.Success, isSelected);
+            return this.JsonResponse(ErrorCodes.Success, isSelected);
         }
     }
 }

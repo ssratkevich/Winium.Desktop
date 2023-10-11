@@ -22,13 +22,13 @@ namespace Winium.Desktop.Driver.CommandExecutors
             }
             catch (CruciatusException exception)
             {
-                return this.JsonResponse(ResponseStatus.NoSuchElement, exception);
+                return this.JsonResponse(ErrorCodes.NoSuchElement, exception);
             }
 
             var registeredKey = this.Automator.ElementsRegistry.RegisterElement(dataGridCell);
             var registeredObject = new JsonElementContent(registeredKey);
 
-            return this.JsonResponse(ResponseStatus.Success, registeredObject);
+            return this.JsonResponse(ErrorCodes.Success, registeredObject);
         }
     }
 }

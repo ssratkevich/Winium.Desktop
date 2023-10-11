@@ -1,4 +1,5 @@
-﻿using Winium.Cruciatus;
+﻿using System.Net;
+using Winium.Cruciatus;
 using Winium.Desktop.Driver.Extensions;
 using Winium.StoreApps.Common;
 using Winium.StoreApps.Common.Exceptions;
@@ -16,12 +17,12 @@ namespace Winium.Desktop.Driver.CommandExecutors
             var element = CruciatusFactory.Root.FindElement(strategy);
             if (element == null)
             {
-                throw new AutomationException("Element cannot be found", ResponseStatus.NoSuchElement);
+                throw new AutomationException("Element cannot be found", ErrorCodes.NoSuchElement);
             }
 
             var registeredKey = this.Automator.ElementsRegistry.RegisterElement(element);
             var registeredObject = new JsonElementContent(registeredKey);
-            return this.JsonResponse(ResponseStatus.Success, registeredObject);
+            return this.JsonResponse(ErrorCodes.Success, registeredObject);
         }
     }
 }

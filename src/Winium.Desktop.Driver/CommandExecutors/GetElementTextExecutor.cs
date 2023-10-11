@@ -10,7 +10,7 @@ namespace Winium.Desktop.Driver.CommandExecutors
 
             var element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);
 
-            return this.JsonResponse(ResponseStatus.Success, element.Text());
+            return this.JsonResponse(ErrorCodes.Success, element.Text());
         }
     }
 }

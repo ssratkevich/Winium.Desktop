@@ -15,7 +15,7 @@ namespace Winium.Desktop.Driver.CommandExecutors
             if (!(haveElement || haveOffset))
             {
                 // TODO: in the future '400 : invalid argument' will be used
-                return this.JsonResponse(ResponseStatus.UnknownError, "WRONG PARAMETERS");
+                return this.JsonResponse(ErrorCodes.UnknownError, "WRONG PARAMETERS");
             }
 
             var resultPoint = CruciatusFactory.Mouse.CurrentCursorPos;

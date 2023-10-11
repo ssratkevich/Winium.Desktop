@@ -9,7 +9,7 @@ namespace Winium.Desktop.Driver.CommandExecutors
         protected override string DoImpl()
         {
             var response = new Dictionary<string, object> { { "build", new BuildInfo() }, { "os", new OSInfo() } };
-            return this.JsonResponse(ResponseStatus.Success, response);
+            return this.JsonResponse(ErrorCodes.Success, response);
         }
     }
 }

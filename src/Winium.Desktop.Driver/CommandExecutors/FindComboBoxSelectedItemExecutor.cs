@@ -21,7 +21,7 @@ namespace Winium.Desktop.Driver.CommandExecutors
             var selectedItemKey = this.Automator.ElementsRegistry.RegisterElement(selectedItem);
             var registeredObject = new JsonElementContent(selectedItemKey);
 
-            return this.JsonResponse(ResponseStatus.Success, registeredObject);
+            return this.JsonResponse(ErrorCodes.Success, registeredObject);
         }
     }
 }

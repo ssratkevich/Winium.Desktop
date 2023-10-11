@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using Newtonsoft.Json;
 
 namespace Winium.StoreApps.Common
@@ -24,13 +25,13 @@ namespace Winium.StoreApps.Common
         /// Element UID.
         /// </summary>
         [JsonProperty("ELEMENT")]
-        public string Element { get => this.element; set => this.element = value; }
+        public string NewElement { get => this.element; set => this.element = value; }
 
         /// <summary>
         /// Element UID according to https://w3c.github.io/webdriver/#dfn-web-element-identifier.
         /// </summary>
         [JsonProperty("element-6066-11e4-a52e-4f735466cecf")]
-        public string NewElement { get => this.element; set => this.element = value; }
+        public string Element { get => this.element; set => this.element = value; }
     }
 
     /// <summary>
@@ -44,12 +45,9 @@ namespace Winium.StoreApps.Common
         /// <param name="sessionId">Session Id.</param>
         /// <param name="responseCode">Response code.</param>
         /// <param name="value">Body value either <see cref="JsonElementContent"/> or <see cref="Exception"/>.</param>
-        public JsonResponse(string sessionId, ResponseStatus responseCode, object value)
+        public JsonResponse(string sessionId, ErrorCodes statusCode, object value)
         {
-            this.SessionId = sessionId;
-            this.Status = responseCode;
-
-            this.Value = responseCode == ResponseStatus.Success ? value : this.PrepareErrorResponse(value);
+            this.ValuesObject = statusCode == ErrorCodes.Success ? new Values(sessionId, value) : this.PrepareErrorResponse(statusCode, value);
         }
 
         /// <summary>
@@ -58,10 +56,10 @@ namespace Winium.StoreApps.Common
         /// </summary>
         /// <param name="value">Exception or other object describing the error.</param>
         /// <returns>Error description: { "error": ..., "message":..., "stacktrace":... }</returns>
-        private object PrepareErrorResponse(object value)
+        private object PrepareErrorResponse(ErrorCodes code, object value)
         {
-            var result = new Dictionary<string, string> { { "error", JsonErrorCodes.Parse(this.Status) } };
-            
+            var result = new Dictionary<string, string> { { "error", JsonErrorCodes.GetErrorDescription(code) } };
+
             string message;
             if (value is Exception exception)
             {
@@ -80,19 +78,31 @@ namespace Winium.StoreApps.Common
         /// <summary>
         /// Session id.
         /// </summary>
-        [JsonProperty("sessionId")]
-        public string SessionId { get; set; }
+        //[JsonProperty("SESSIONID")]
+        // public string SessionId { get; set; }
 
         /// <summary>
         /// Status code.
         /// </summary>
-        [JsonProperty("status")]
-        public ResponseStatus Status { get; set; }
+        //[JsonProperty("status")]
+        //public ErrorCodes Status { get; set; }
 
-        /// <summary>
-        /// Value.
-        /// </summary>
         [JsonProperty("value")]
-        public object Value { get; set; }
+        public object ValuesObject { get; set; }
+        public class Values
+        {
+            public Values(string sessionId, object value)
+            {
+
+                this.Capabilities = value;
+                this.SessionId = sessionId;
+            }
+
+            [JsonProperty("sessionId")]
+            public string SessionId { get; set; }
+
+            [JsonProperty("capabilities")]
+            public object Capabilities { get; set; }
+        }
     }
 }

@@ -40,19 +40,19 @@ namespace Winium.Desktop.Driver.CommandExecutors
             }
             catch (AutomationException exception)
             {
-                return CommandResponse.Create(HttpStatusCode.OK, this.JsonResponse(exception.Status, exception));
+                return CommandResponse.Create(JsonErrorCodes.GetErrorStatusCode(exception.ErrorCode), this.JsonResponse(exception.ErrorCode, exception));
             }
             catch (NotImplementedException exception)
             {
                 return CommandResponse.Create(
                     HttpStatusCode.NotImplemented,
-                    this.JsonResponse(ResponseStatus.UnknownCommand, exception));
+                    this.JsonResponse(ErrorCodes.UnknownCommand, exception));
             }
             catch (Exception exception)
             {
                 return CommandResponse.Create(
-                    HttpStatusCode.OK,
-                    this.JsonResponse(ResponseStatus.UnknownError, exception));
+                    HttpStatusCode.InternalServerError,
+                    this.JsonResponse(ErrorCodes.UnknownError, exception));
             }
         }
 
@@ -67,10 +67,10 @@ namespace Winium.Desktop.Driver.CommandExecutors
         /// </summary>
         protected string JsonResponse()
         {
-            return this.JsonResponse(ResponseStatus.Success, null);
+            return this.JsonResponse(ErrorCodes.Success, null);
         }
 
-        protected string JsonResponse(ResponseStatus status, object value)
+        protected string JsonResponse(ErrorCodes status, object value)
         {
             return JsonConvert.SerializeObject(
                 new JsonResponse(this.Automator.Session, status, value),
@@ -79,7 +79,7 @@ namespace Winium.Desktop.Driver.CommandExecutors
 
         protected CruciatusElement TryGetElement(JToken value) =>
             value != null
-            ? this.TryGetElement(value["ELEMENT"].ToString())
+            ? this.TryGetElement(value["element-6066-11e4-a52e-4f735466cecf"].ToString())
             : null;
 
         protected CruciatusElement TryGetElement(string elementId) =>

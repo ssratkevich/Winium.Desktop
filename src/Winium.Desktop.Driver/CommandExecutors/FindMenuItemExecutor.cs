@@ -21,7 +21,7 @@ namespace Winium.Desktop.Driver.CommandExecutors
 
             var elementKey = this.Automator.ElementsRegistry.RegisterElement(element);
 
-            return this.JsonResponse(ResponseStatus.Success, new JsonElementContent(elementKey));
+            return this.JsonResponse(ErrorCodes.Success, new JsonElementContent(elementKey));
         }
     }
 }

@@ -11,6 +11,8 @@ namespace Winium.StoreApps.Common.Exceptions
 
         private ResponseStatus responseStatus = ResponseStatus.UnknownError;
 
+        private ErrorCodes errorCodes = ErrorCodes.UnknownError;
+
         #endregion
 
         #region Constructors
@@ -64,6 +66,19 @@ namespace Winium.StoreApps.Common.Exceptions
         {
             get => this.responseStatus;
             set => this.responseStatus = value;
+        }
+
+        public ErrorCodes ErrorCode
+        {
+            get => this.errorCodes;
+            set => this.errorCodes = value;
+        }
+
+
+        public AutomationException(string message, ErrorCodes errorCodes)
+            : base(message)
+        {
+            this.ErrorCode = errorCodes;
         }
 
         #endregion

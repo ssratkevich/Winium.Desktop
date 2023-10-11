@@ -25,12 +25,12 @@ namespace Winium.Desktop.Driver.CommandExecutors
             }
             catch (CruciatusException exception)
             {
-                return this.JsonResponse(ResponseStatus.NoSuchElement, exception);
+                return this.JsonResponse(ErrorCodes.NoSuchElement, exception);
             }
 
             var elementKey = this.Automator.ElementsRegistry.RegisterElement(element);
 
-            return this.JsonResponse(ResponseStatus.Success, new JsonElementContent(elementKey));
+            return this.JsonResponse(ErrorCodes.Success, new JsonElementContent(elementKey));
         }
     }
 }

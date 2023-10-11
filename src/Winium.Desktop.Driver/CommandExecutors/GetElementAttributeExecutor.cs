@@ -21,7 +21,7 @@ namespace Winium.Desktop.Driver.CommandExecutors
                 var property = AutomationPropertyHelper.GetAutomationProperty(propertyName);
                 var propertyObject = element.GetAutomationPropertyValue<object>(property);
 
-                return this.JsonResponse(ResponseStatus.Success, PrepareValueToSerialize(propertyObject));
+                return this.JsonResponse(ErrorCodes.Success, PrepareValueToSerialize(propertyObject));
             }
             catch (Exception)
             {

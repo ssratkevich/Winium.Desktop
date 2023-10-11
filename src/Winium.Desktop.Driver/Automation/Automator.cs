@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using Winium.Cruciatus;
 using Winium.Desktop.Driver.Input;
@@ -59,7 +60,8 @@ namespace Winium.Desktop.Driver.Automation
                     {
                         if (sessionId == null)
                         {
-                            sessionId = "AwesomeSession";
+                            Guid sessionIdUid = Guid.NewGuid();
+                            sessionId = sessionIdUid.ToString();
                         }
 
                         // TODO: Add actual support for sessions. Temporary return single Automator for any season

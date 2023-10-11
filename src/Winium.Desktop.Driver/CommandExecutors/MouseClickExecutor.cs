@@ -22,7 +22,7 @@ namespace Winium.Desktop.Driver.CommandExecutors
                     break;
 
                 default:
-                    return this.JsonResponse(ResponseStatus.UnknownCommand, "Mouse button behavior is not implemented");
+                    return this.JsonResponse(ErrorCodes.UnknownCommand, "Mouse button behavior is not implemented");
             }
 
             return this.JsonResponse();

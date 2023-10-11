@@ -11,7 +11,7 @@ namespace Winium.Desktop.Driver.CommandExecutors
 
             var dataGrid = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey).ToDataGrid();
 
-            return this.JsonResponse(ResponseStatus.Success, dataGrid.ColumnCount);
+            return this.JsonResponse(ErrorCodes.Success, dataGrid.ColumnCount);
         }
     }
 }

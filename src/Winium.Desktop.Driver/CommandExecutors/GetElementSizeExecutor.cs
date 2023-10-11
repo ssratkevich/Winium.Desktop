@@ -19,7 +19,7 @@ namespace Winium.Desktop.Driver.CommandExecutors
                     { "width", boundingRect.Width }, 
                     { "height", boundingRect.Height }
                 };
-            return this.JsonResponse(ResponseStatus.Success, response);
+            return this.JsonResponse(ErrorCodes.Success, response);
         }
     }
 }

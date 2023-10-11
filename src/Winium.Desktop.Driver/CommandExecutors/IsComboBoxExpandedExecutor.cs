@@ -11,7 +11,7 @@ namespace Winium.Desktop.Driver.CommandExecutors
 
             var element = this.Automator.ElementsRegistry.GetRegisteredElement(registeredKey);
 
-            return this.JsonResponse(ResponseStatus.Success, element.ToComboBox().IsExpanded);
+            return this.JsonResponse(ErrorCodes.Success, element.ToComboBox().IsExpanded);
         }
     }
 }
